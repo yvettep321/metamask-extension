@@ -148,6 +148,9 @@ describe('SwapsController', function () {
 
   before(function () {
     const providerResultStub = {
+      eth_call: '0x',
+      // mainnet
+      eth_chainId: '0x1',
       // 1 gwei
       eth_gasPrice: '0x0de0b6b3a7640000',
       // by default, all accounts are external accounts (not contracts)
@@ -637,12 +640,13 @@ describe('SwapsController', function () {
       })
     })
 
-    describe('fetchAndSetQuotes', function () {
+    describe.only('fetchAndSetQuotes', function () {
       it('returns null if fetchParams is not provided', async function () {
         const quotes = await swapsController.fetchAndSetQuotes(undefined)
         assert.strictEqual(quotes, null)
       })
       it('calls fetchTradesInfo with the given fetchParams and returns the correct quotes', async function () {
+        await new Promise((resolve) => setTimeout(() => resolve(), 1000))
         fetchTradesInfoStub.resolves(getMockQuotes())
         fetchSwapsQuoteRefreshTimeStub.resolves(getMockQuoteRefreshTime())
 
@@ -686,6 +690,7 @@ describe('SwapsController', function () {
         )
       })
       it('performs the allowance check', async function () {
+        await new Promise((resolve) => setTimeout(() => resolve(), 1000))
         fetchTradesInfoStub.resolves(getMockQuotes())
         fetchSwapsQuoteRefreshTimeStub.resolves(getMockQuoteRefreshTime())
 
@@ -1632,5 +1637,5 @@ function getTopQuoteAndSavingsBaseExpectedResults() {
 }
 
 function getMockQuoteRefreshTime() {
-  return 45000
+  return 0
 }
