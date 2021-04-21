@@ -1,4 +1,5 @@
 const assert = require('assert');
+const { until } = require('selenium-webdriver');
 const enLocaleMessages = require('../../app/_locales/en/messages.json');
 const { regularDelayMs, largeDelayMs } = require('./helpers');
 const { buildWebDriver } = require('./webdriver');
