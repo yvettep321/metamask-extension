@@ -120,10 +120,6 @@
   "amount": {
     "message": "Jumlah"
   },
-  "amountInEth": {
-    "message": "$1 ETH",
-    "description": "Displays an eth amount to the user. $1 is a decimal number"
-  },
   "amountWithColon": {
     "message": "Jumlah:"
   },
@@ -1643,7 +1639,7 @@
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapNetworkFeeSummary": {
-    "message": "Biaya jaringan mencakup biaya pemrosesan penukaran Anda dan menyimpannya di jaringan Ethereum. MetaMask tidak mendapatkan keuntungan dari biaya ini."
+    "message": "Biaya jaringan mencakup biaya pemrosesan penukaran Anda dan menyimpannya di jaringan $1. MetaMask tidak mendapatkan keuntungan dari biaya ini."
   },
   "swapNewQuoteIn": {
     "message": "Kuota baru di $1",
@@ -1751,7 +1747,8 @@
     "message": "Tidak diketahui"
   },
   "swapVerifyTokenExplanation": {
-    "message": "Beberapa token dapat menggunakan simbol dan nama yang sama. Periksa Etherscan untuk memverifikasi inilah token yang Anda cari."
+    "message": "Beberapa token dapat menggunakan simbol dan nama yang sama. Periksa $1 untuk memverifikasi inilah token yang Anda cari.",
+    "description": "This appears in a tooltip next to the verifyThisTokenOn message. It gives the user more information about why they should check the token on a block explorer. $1 will be the name or url of the block explorer, which will be the translation of 'etherscan' or a block explorer url specified for a custom network."
   },
   "swapViewToken": {
     "message": "Lihat $1"

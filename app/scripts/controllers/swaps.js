@@ -12,6 +12,7 @@ import {
   QUOTES_EXPIRED_ERROR,
   QUOTES_NOT_AVAILABLE_ERROR,
   SWAPS_FETCH_ORDER_CONFLICT,
+  SWAPS_CHAINID_CONTRACT_ADDRESS_MAP,
 } from '../../../shared/constants/swaps';
 import { isSwapsDefaultTokenAddress } from '../../../shared/modules/swaps.utils';
 
@@ -21,8 +22,6 @@ import {
   fetchSwapsQuoteRefreshTime as defaultFetchSwapsQuoteRefreshTime,
 } from '../../../ui/app/pages/swaps/swaps.util';
 import { NETWORK_EVENTS } from './network';
-
-const METASWAP_ADDRESS = '0x881d40237659c251811cec9c364ef91dc08d300c';
 
 // The MAX_GAS_LIMIT is a number that is higher than the maximum gas costs we have observed on any aggregator
 const MAX_GAS_LIMIT = 2500000;
@@ -71,7 +70,7 @@ const initialState = {
     errorKey: '',
     topAggId: null,
     routeState: '',
-    swapsFeatureIsLive: false,
+    swapsFeatureIsLive: true,
     swapsQuoteRefreshTime: FALLBACK_QUOTE_REFRESH_TIME,
   },
 };
@@ -113,8 +112,6 @@ export default class SwapsController {
         this.ethersProvider = new ethers.providers.Web3Provider(provider);
       }
     });
-
-    this._setupSwapsLivenessFetching();
   }
 
   // Sets the refresh rate for quote updates from the MetaSwap API
@@ -203,6 +200,7 @@ export default class SwapsController {
       const allowance = await this._getERC20Allowance(
         fetchParams.sourceToken,
         fetchParams.fromAddress,
+        chainId,
       );
 
       // For a user to be able to swap a token, they need to have approved the MetaSwap contract to withdraw that token.
@@ -478,7 +476,6 @@ export default class SwapsController {
       swapsState: {
         ...initialState.swapsState,
         tokens: swapsState.tokens,
-        swapsFeatureIsLive: swapsState.swapsFeatureIsLive,
         swapsQuoteRefreshTime: swapsState.swapsQuoteRefreshTime,
       },
     });
@@ -675,106 +672,16 @@ export default class SwapsController {
     return [topAggId, newQuotes];
   }
 
-  async _getERC20Allowance(contractAddress, walletAddress) {
+  async _getERC20Allowance(contractAddress, walletAddress, chainId) {
     const contract = new ethers.Contract(
       contractAddress,
       abi,
       this.ethersProvider,
     );
-    return await contract.allowance(walletAddress, METASWAP_ADDRESS);
-  }
-
-  /**
-   * Sets up the fetching of the swaps feature liveness flag from our API.
-   * Performs an initial fetch when called, then fetches on a 10-minute
-   * interval.
-   *
-   * If the browser goes offline, the interval is cleared and swaps are disabled
-   * until the value can be fetched again.
-   */
-  _setupSwapsLivenessFetching() {
-    const TEN_MINUTES_MS = 10 * 60 * 1000;
-    let intervalId = null;
-
-    const fetchAndSetupInterval = () => {
-      if (window.navigator.onLine && intervalId === null) {
-        // Set the interval first to prevent race condition between listener and
-        // initial call to this function.
-        intervalId = setInterval(
-          this._fetchAndSetSwapsLiveness.bind(this),
-          TEN_MINUTES_MS,
-        );
-        this._fetchAndSetSwapsLiveness();
-      }
-    };
-
-    window.addEventListener('online', fetchAndSetupInterval);
-    window.addEventListener('offline', () => {
-      if (intervalId !== null) {
-        clearInterval(intervalId);
-        intervalId = null;
-
-        const { swapsState } = this.store.getState();
-        if (swapsState.swapsFeatureIsLive) {
-          this.setSwapsLiveness(false);
-        }
-      }
-    });
-
-    fetchAndSetupInterval();
-  }
-
-  /**
-   * This function should only be called via _setupSwapsLivenessFetching.
-   *
-   * Attempts to fetch the swaps feature liveness flag from our API. Tries
-   * to fetch three times at 5-second intervals before giving up, in which
-   * case the value defaults to 'false'.
-   *
-   * Only updates state if the fetched/computed flag value differs from current
-   * state.
-   */
-  async _fetchAndSetSwapsLiveness() {
-    const { swapsState } = this.store.getState();
-    const { swapsFeatureIsLive: oldSwapsFeatureIsLive } = swapsState;
-    const chainId = this._getCurrentChainId();
-
-    let swapsFeatureIsLive = false;
-    let successfullyFetched = false;
-    let numAttempts = 0;
-
-    const fetchAndIncrementNumAttempts = async () => {
-      try {
-        swapsFeatureIsLive = Boolean(
-          await this._fetchSwapsFeatureLiveness(chainId),
-        );
-        successfullyFetched = true;
-      } catch (err) {
-        log.error(err);
-        numAttempts += 1;
-      }
-    };
-
-    await fetchAndIncrementNumAttempts();
-
-    // The loop conditions are modified by fetchAndIncrementNumAttempts.
-    // eslint-disable-next-line no-unmodified-loop-condition
-    while (!successfullyFetched && numAttempts < 3) {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 5000); // 5 seconds
-      });
-      await fetchAndIncrementNumAttempts();
-    }
-
-    if (!successfullyFetched) {
-      log.error(
-        'Failed to fetch swaps feature flag 3 times. Setting to false and trying again next interval.',
-      );
-    }
-
-    if (swapsFeatureIsLive !== oldSwapsFeatureIsLive) {
-      this.setSwapsLiveness(swapsFeatureIsLive);
-    }
+    return await contract.allowance(
+      walletAddress,
+      SWAPS_CHAINID_CONTRACT_ADDRESS_MAP[chainId],
+    );
   }
 }
 

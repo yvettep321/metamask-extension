@@ -126,10 +126,6 @@
   "amount": {
     "message": "金額"
   },
-  "amountInEth": {
-    "message": "$1 ETH",
-    "description": "Displays an eth amount to the user. $1 is a decimal number"
-  },
   "amountWithColon": {
     "message": "金額:"
   },
@@ -1659,7 +1655,7 @@
     "description": "$1 is the number of quotes that the user can select from when opening the list of quotes on the 'view quote' screen"
   },
   "swapNetworkFeeSummary": {
-    "message": "ネットワーク手数料には、スワップの結果をEthereumネットワークに保管する費用も含まれています。MetaMaskは手数料から利益を得ません。"
+    "message": "ネットワーク手数料には、スワップの結果を$1ネットワークに保管する費用も含まれています。MetaMaskは手数料から利益を得ません。"
   },
   "swapNewQuoteIn": {
     "message": "見積の有効期限 $1",
@@ -1784,7 +1780,8 @@
     "message": "最適な見積を使用する"
   },
   "swapVerifyTokenExplanation": {
-    "message": "複数のトークンが同じ名前とシンボルであることがあります。Etherscanで実際のトークンでを確認してください。"
+    "message": "複数のトークンが同じ名前とシンボルであることがあります。$1で実際のトークンでを確認してください。",
+    "description": "This appears in a tooltip next to the verifyThisTokenOn message. It gives the user more information about why they should check the token on a block explorer. $1 will be the name or url of the block explorer, which will be the translation of 'etherscan' or a block explorer url specified for a custom network."
   },
   "swapViewToken": {
     "message": "$1 を表示"

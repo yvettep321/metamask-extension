@@ -120,10 +120,6 @@
   "amount": {
     "message": "राशि"
   },
-  "amountInEth": {
-    "message": "$1 ETH",
-    "description": "Displays an eth amount to the user. $1 is a decimal number"
-  },
   "amountWithColon": {
     "message": "राशि:"
   },
@@ -1643,7 +1639,7 @@
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapNetworkFeeSummary": {
-    "message": "नेटवर्क शुल्क आपके स्वैप को संसाधित करने के शुल्क और उसे Ethereum नेटवर्क पर संग्रह करने को कवर करता है। MetaMask इस शुल्क से लाभ नहीं कमाता है।"
+    "message": "नेटवर्क शुल्क आपके स्वैप को संसाधित करने के शुल्क और उसे $1 नेटवर्क पर संग्रह करने को कवर करता है। MetaMask इस शुल्क से लाभ नहीं कमाता है।"
   },
   "swapNewQuoteIn": {
     "message": "$1 में नए उद्धरण",
@@ -1751,7 +1747,8 @@
     "message": "अज्ञात"
   },
   "swapVerifyTokenExplanation": {
-    "message": "एकाधिक टोकन एक ही नाम और प्रतीक का उपयोग कर सकते हैं। यह सत्यापित करने के लिए Etherscan की जाँच करें कि यह वही टोकन है, जिसकी आप तलाश कर रहे हैं।"
+    "message": "एकाधिक टोकन एक ही नाम और प्रतीक का उपयोग कर सकते हैं। यह सत्यापित करने के लिए $1 की जाँच करें कि यह वही टोकन है, जिसकी आप तलाश कर रहे हैं।",
+    "description": "This appears in a tooltip next to the verifyThisTokenOn message. It gives the user more information about why they should check the token on a block explorer. $1 will be the name or url of the block explorer, which will be the translation of 'etherscan' or a block explorer url specified for a custom network."
   },
   "swapViewToken": {
     "message": "$1 देखें"

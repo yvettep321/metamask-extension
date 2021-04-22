@@ -34,7 +34,7 @@ import { calcGasTotal } from '../send/send.utils';
 const TOKEN_TRANSFER_LOG_TOPIC_HASH =
   '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 
-const CACHE_REFRESH_ONE_HOUR = 3600000;
+const CACHE_REFRESH_FIVE_MINUTES = 300000;
 
 const getBaseApi = function (type, chainId = MAINNET_CHAIN_ID) {
   switch (type) {
@@ -130,6 +130,10 @@ const QUOTE_VALIDATORS = [
     property: 'gasEstimate',
     type: 'number|undefined',
     validator: (gasEstimate) => gasEstimate === undefined || gasEstimate > 0,
+  },
+  {
+    property: 'fee',
+    type: 'number',
   },
 ];
 
@@ -286,7 +290,7 @@ export async function fetchTokens(chainId) {
   const tokens = await fetchWithCache(
     tokenUrl,
     { method: 'GET' },
-    { cacheRefreshTime: CACHE_REFRESH_ONE_HOUR },
+    { cacheRefreshTime: CACHE_REFRESH_FIVE_MINUTES },
   );
   const filteredTokens = [
     SWAPS_CHAINID_DEFAULT_TOKEN_MAP[chainId],
@@ -308,7 +312,7 @@ export async function fetchAggregatorMetadata(chainId) {
   const aggregators = await fetchWithCache(
     aggregatorMetadataUrl,
     { method: 'GET' },
-    { cacheRefreshTime: CACHE_REFRESH_ONE_HOUR },
+    { cacheRefreshTime: CACHE_REFRESH_FIVE_MINUTES },
   );
   const filteredAggregators = {};
   for (const aggKey in aggregators) {
@@ -330,7 +334,7 @@ export async function fetchTopAssets(chainId) {
   const response = await fetchWithCache(
     topAssetsUrl,
     { method: 'GET' },
-    { cacheRefreshTime: CACHE_REFRESH_ONE_HOUR },
+    { cacheRefreshTime: CACHE_REFRESH_FIVE_MINUTES },
   );
   const topAssetsMap = response.reduce((_topAssetsMap, asset, index) => {
     if (validateData(TOP_ASSET_VALIDATORS, asset, topAssetsUrl)) {
@@ -392,7 +396,7 @@ export async function fetchSwapsGasPrices(chainId) {
   const response = await fetchWithCache(
     gasPricesUrl,
     { method: 'GET' },
-    { cacheRefreshTime: 15000 },
+    { cacheRefreshTime: 30000 },
   );
   const responseIsValid = validateData(
     SWAP_GAS_PRICE_VALIDATOR,
@@ -427,6 +431,7 @@ export function getRenderableNetworkFeesForQuote({
   sourceSymbol,
   sourceAmount,
   chainId,
+  nativeCurrencySymbol,
 }) {
   const totalGasLimitForCalculation = new BigNumber(tradeGas || '0x0', 16)
     .plus(approveGas || '0x0', 16)
@@ -456,11 +461,15 @@ export function getRenderableNetworkFeesForQuote({
     numberOfDecimals: 2,
   });
   const formattedNetworkFee = formatCurrency(rawNetworkFees, currentCurrency);
+
+  const chainCurrencySymbolToUse =
+    nativeCurrencySymbol || SWAPS_CHAINID_DEFAULT_TOKEN_MAP[chainId].symbol;
+
   return {
     rawNetworkFees,
     rawEthFee: ethFee,
     feeInFiat: formattedNetworkFee,
-    feeInEth: `${ethFee} ${SWAPS_CHAINID_DEFAULT_TOKEN_MAP[chainId].symbol}`,
+    feeInEth: `${ethFee} ${chainCurrencySymbolToUse}`,
     nonGasFee,
   };
 }

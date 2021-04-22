@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { KOVAN_CHAIN_ID } from '../../../shared/constants/network';
 import {
   getConnectedDomainsForSelectedAddress,
@@ -6,9 +5,9 @@ import {
   getPermissionsForActiveTab,
 } from './permissions';
 
-describe('selectors', function () {
-  describe('getConnectedDomainsForSelectedAddress', function () {
-    it('should return the list of connected domains when there is 1 connected account', function () {
+describe('selectors', () => {
+  describe('getConnectedDomainsForSelectedAddress', () => {
+    it('should return the list of connected domains when there is 1 connected account', () => {
       const mockState = {
         metamask: {
           selectedAddress: '0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5',
@@ -29,17 +28,17 @@ describe('selectors', function () {
               permissions: [
                 {
                   '@context': ['https://github.com/MetaMask/rpc-cap'],
-                  caveats: [
+                  'caveats': [
                     {
                       name: 'exposedAccounts',
                       type: 'filterResponse',
                       value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                     },
                   ],
-                  date: 1585676177970,
-                  id: '840d72a0-925f-449f-830a-1aa1dd5ce151',
-                  invoker: 'peepeth.com',
-                  parentCapability: 'eth_accounts',
+                  'date': 1585676177970,
+                  'id': '840d72a0-925f-449f-830a-1aa1dd5ce151',
+                  'invoker': 'peepeth.com',
+                  'parentCapability': 'eth_accounts',
                 },
               ],
             },
@@ -47,17 +46,17 @@ describe('selectors', function () {
               permissions: [
                 {
                   '@context': ['https://github.com/MetaMask/rpc-cap'],
-                  caveats: [
+                  'caveats': [
                     {
                       type: 'filterResponse',
                       value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                       name: 'exposedAccounts',
                     },
                   ],
-                  date: 1585685128948,
-                  id: '6b9615cc-64e4-4317-afab-3c4f8ee0244a',
-                  invoker: 'https://remix.ethereum.org',
-                  parentCapability: 'eth_accounts',
+                  'date': 1585685128948,
+                  'id': '6b9615cc-64e4-4317-afab-3c4f8ee0244a',
+                  'invoker': 'https://remix.ethereum.org',
+                  'parentCapability': 'eth_accounts',
                 },
               ],
             },
@@ -65,7 +64,7 @@ describe('selectors', function () {
         },
       };
       const extensionId = undefined;
-      assert.deepStrictEqual(getConnectedDomainsForSelectedAddress(mockState), [
+      expect(getConnectedDomainsForSelectedAddress(mockState)).toStrictEqual([
         {
           extensionId,
           icon: 'https://peepeth.com/favicon-32x32.png',
@@ -83,7 +82,7 @@ describe('selectors', function () {
       ]);
     });
 
-    it('should return the list of connected domains when there are 2 connected accounts', function () {
+    it('should return the list of connected domains when there are 2 connected accounts', () => {
       const mockState = {
         metamask: {
           selectedAddress: '0x7250739de134d33ec7ab1ee592711e15098c9d2d',
@@ -104,17 +103,17 @@ describe('selectors', function () {
               permissions: [
                 {
                   '@context': ['https://github.com/MetaMask/rpc-cap'],
-                  caveats: [
+                  'caveats': [
                     {
                       name: 'exposedAccounts',
                       type: 'filterResponse',
                       value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                     },
                   ],
-                  date: 1585676177970,
-                  id: '840d72a0-925f-449f-830a-1aa1dd5ce151',
-                  invoker: 'peepeth.com',
-                  parentCapability: 'eth_accounts',
+                  'date': 1585676177970,
+                  'id': '840d72a0-925f-449f-830a-1aa1dd5ce151',
+                  'invoker': 'peepeth.com',
+                  'parentCapability': 'eth_accounts',
                 },
               ],
             },
@@ -122,7 +121,7 @@ describe('selectors', function () {
               permissions: [
                 {
                   '@context': ['https://github.com/MetaMask/rpc-cap'],
-                  caveats: [
+                  'caveats': [
                     {
                       type: 'filterResponse',
                       value: [
@@ -132,10 +131,10 @@ describe('selectors', function () {
                       name: 'exposedAccounts',
                     },
                   ],
-                  date: 1585685128948,
-                  id: '6b9615cc-64e4-4317-afab-3c4f8ee0244a',
-                  invoker: 'https://remix.ethereum.org',
-                  parentCapability: 'eth_accounts',
+                  'date': 1585685128948,
+                  'id': '6b9615cc-64e4-4317-afab-3c4f8ee0244a',
+                  'invoker': 'https://remix.ethereum.org',
+                  'parentCapability': 'eth_accounts',
                 },
               ],
             },
@@ -143,7 +142,7 @@ describe('selectors', function () {
         },
       };
       const extensionId = undefined;
-      assert.deepStrictEqual(getConnectedDomainsForSelectedAddress(mockState), [
+      expect(getConnectedDomainsForSelectedAddress(mockState)).toStrictEqual([
         {
           extensionId,
           name: 'Remix - Ethereum IDE',
@@ -155,7 +154,7 @@ describe('selectors', function () {
     });
   });
 
-  describe('getConnectedAccountsForActiveTab', function () {
+  describe('getConnectedAccountsForActiveTab', () => {
     const mockState = {
       activeTab: {
         title: 'Eth Sign Tests',
@@ -190,7 +189,7 @@ describe('selectors', function () {
             permissions: [
               {
                 '@context': ['https://github.com/MetaMask/rpc-cap'],
-                caveats: [
+                'caveats': [
                   {
                     name: 'exposedAccounts',
                     type: 'filterResponse',
@@ -203,10 +202,10 @@ describe('selectors', function () {
                     ],
                   },
                 ],
-                date: 1586359844177,
-                id: '3aa65a8b-3bcb-4944-941b-1baa5fe0ed8b',
-                invoker: 'https://remix.ethereum.org',
-                parentCapability: 'eth_accounts',
+                'date': 1586359844177,
+                'id': '3aa65a8b-3bcb-4944-941b-1baa5fe0ed8b',
+                'invoker': 'https://remix.ethereum.org',
+                'parentCapability': 'eth_accounts',
               },
             ],
           },
@@ -214,17 +213,17 @@ describe('selectors', function () {
             permissions: [
               {
                 '@context': ['https://github.com/MetaMask/rpc-cap'],
-                caveats: [
+                'caveats': [
                   {
                     name: 'exposedAccounts',
                     type: 'filterResponse',
                     value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                   },
                 ],
-                date: 1585676177970,
-                id: '840d72a0-925f-449f-830a-1aa1dd5ce151',
-                invoker: 'peepeth.com',
-                parentCapability: 'eth_accounts',
+                'date': 1585676177970,
+                'id': '840d72a0-925f-449f-830a-1aa1dd5ce151',
+                'invoker': 'peepeth.com',
+                'parentCapability': 'eth_accounts',
               },
             ],
           },
@@ -282,44 +281,41 @@ describe('selectors', function () {
       },
     };
 
-    it('should return connected accounts sorted by last selected, then by keyring controller order', function () {
-      assert.deepStrictEqual(
-        getOrderedConnectedAccountsForActiveTab(mockState),
-        [
-          {
-            address: '0xb3958fb96c8201486ae20be1d5c9f58083df343a',
-            name: 'Account 2',
-            lastActive: 1586359844192,
-            lastSelected: 1586359844193,
-          },
-          {
-            address: '0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5',
-            name: 'Account 1',
-            lastActive: 1586359844192,
-            lastSelected: 1586359844192,
-          },
-          {
-            address: '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
-            name: 'Account 3',
-            lastActive: 1586359844192,
-            lastSelected: 1586359844192,
-          },
-          {
-            address: '0x7250739de134d33ec7ab1ee592711e15098c9d2d',
-            name: 'Really Long Name That Should Be Truncated',
-            lastActive: 1586359844192,
-          },
-          {
-            address: '0x617b3f8050a0bd94b6b1da02b4384ee5b4df13f4',
-            name: 'Account 4',
-            lastActive: 1586359844192,
-          },
-        ],
-      );
+    it('should return connected accounts sorted by last selected, then by keyring controller order', () => {
+      expect(getOrderedConnectedAccountsForActiveTab(mockState)).toStrictEqual([
+        {
+          address: '0xb3958fb96c8201486ae20be1d5c9f58083df343a',
+          name: 'Account 2',
+          lastActive: 1586359844192,
+          lastSelected: 1586359844193,
+        },
+        {
+          address: '0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5',
+          name: 'Account 1',
+          lastActive: 1586359844192,
+          lastSelected: 1586359844192,
+        },
+        {
+          address: '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
+          name: 'Account 3',
+          lastActive: 1586359844192,
+          lastSelected: 1586359844192,
+        },
+        {
+          address: '0x7250739de134d33ec7ab1ee592711e15098c9d2d',
+          name: 'Really Long Name That Should Be Truncated',
+          lastActive: 1586359844192,
+        },
+        {
+          address: '0x617b3f8050a0bd94b6b1da02b4384ee5b4df13f4',
+          name: 'Account 4',
+          lastActive: 1586359844192,
+        },
+      ]);
     });
   });
 
-  describe('getPermissionsForActiveTab', function () {
+  describe('getPermissionsForActiveTab', () => {
     const mockState = {
       activeTab: {
         title: 'Eth Sign Tests',
@@ -347,7 +343,7 @@ describe('selectors', function () {
             permissions: [
               {
                 '@context': ['https://github.com/MetaMask/rpc-cap'],
-                caveats: [
+                'caveats': [
                   {
                     name: 'exposedAccounts',
                     type: 'filterResponse',
@@ -357,10 +353,10 @@ describe('selectors', function () {
                     ],
                   },
                 ],
-                date: 1586359844177,
-                id: '3aa65a8b-3bcb-4944-941b-1baa5fe0ed8b',
-                invoker: 'https://remix.ethereum.org',
-                parentCapability: 'eth_accounts',
+                'date': 1586359844177,
+                'id': '3aa65a8b-3bcb-4944-941b-1baa5fe0ed8b',
+                'invoker': 'https://remix.ethereum.org',
+                'parentCapability': 'eth_accounts',
               },
             ],
           },
@@ -368,17 +364,17 @@ describe('selectors', function () {
             permissions: [
               {
                 '@context': ['https://github.com/MetaMask/rpc-cap'],
-                caveats: [
+                'caveats': [
                   {
                     name: 'exposedAccounts',
                     type: 'filterResponse',
                     value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                   },
                 ],
-                date: 1585676177970,
-                id: '840d72a0-925f-449f-830a-1aa1dd5ce151',
-                invoker: 'peepeth.com',
-                parentCapability: 'eth_accounts',
+                'date': 1585676177970,
+                'id': '840d72a0-925f-449f-830a-1aa1dd5ce151',
+                'invoker': 'peepeth.com',
+                'parentCapability': 'eth_accounts',
               },
             ],
           },
@@ -386,17 +382,17 @@ describe('selectors', function () {
             permissions: [
               {
                 '@context': ['https://github.com/MetaMask/rpc-cap'],
-                caveats: [
+                'caveats': [
                   {
                     name: 'exposedAccounts',
                     type: 'filterResponse',
                     value: ['0x8e5d75d60224ea0c33d0041e75de68b1c3cb6dd5'],
                   },
                 ],
-                date: 1585616816623,
-                id: 'ce625215-f2e9-48e7-93ca-21ba193244ff',
-                invoker: 'uniswap.exchange',
-                parentCapability: 'eth_accounts',
+                'date': 1585616816623,
+                'id': 'ce625215-f2e9-48e7-93ca-21ba193244ff',
+                'invoker': 'uniswap.exchange',
+                'parentCapability': 'eth_accounts',
               },
             ],
           },
@@ -421,8 +417,8 @@ describe('selectors', function () {
       },
     };
 
-    it('should return a list of permissions strings', function () {
-      assert.deepStrictEqual(getPermissionsForActiveTab(mockState), [
+    it('should return a list of permissions strings', () => {
+      expect(getPermissionsForActiveTab(mockState)).toStrictEqual([
         {
           key: 'eth_accounts',
         },

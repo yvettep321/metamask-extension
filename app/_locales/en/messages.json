@@ -143,10 +143,6 @@
   "amount": {
     "message": "Amount"
   },
-  "amountInEth": {
-    "message": "$1 ETH",
-    "description": "Displays an eth amount to the user. $1 is a decimal number"
-  },
   "amountWithColon": {
     "message": "Amount:"
   },
@@ -584,6 +580,12 @@
   "editContact": {
     "message": "Edit Contact"
   },
+  "editNonceField": {
+    "message": "Edit Nonce"
+  },
+  "editNonceMessage": {
+    "message": "This is an advanced feature, use cautiously."
+  },
   "editPermission": {
     "message": "Edit Permission"
   },
@@ -888,6 +890,10 @@
   "infoHelp": {
     "message": "Info & Help"
   },
+  "infuraBlockedNotification": {
+    "message": "MetaMask is unable to connect to the blockchain host. Review possible reasons $1.",
+    "description": "$1 is a clickable link with with text defined by the 'here' key"
+  },
   "initialTransactionConfirmed": {
     "message": "Your initial transaction was confirmed by the network. Click OK to go back."
   },
@@ -1108,8 +1114,17 @@
   "networkName": {
     "message": "Network Name"
   },
+  "networkNameBSC": {
+    "message": "BSC"
+  },
   "networkNameDefinition": {
     "message": "The name associated with this network."
+  },
+  "networkNameEthereum": {
+    "message": "Ethereum"
+  },
+  "networkNameTestnet": {
+    "message": "Testnet"
   },
   "networkSettingsChainIdDescription": {
     "message": "The chain ID is used for signing transactions. It must match the chain ID returned by the network. You can enter a decimal or '0x'-prefixed hexadecimal number, but we will display the number in decimal."
@@ -1190,6 +1205,9 @@
   },
   "noWebcamFoundTitle": {
     "message": "Webcam not found"
+  },
+  "nonce": {
+    "message": "Nonce"
   },
   "nonceField": {
     "message": "Customize transaction nonce"
@@ -1505,6 +1523,42 @@
   "securitySettingsDescription": {
     "message": "Privacy settings and wallet seed phrase"
   },
+  "seedPhraseIntroSidebarBulletFour": {
+    "message": "Write down and store in multiple secret places."
+  },
+  "seedPhraseIntroSidebarBulletOne": {
+    "message": "Save in a password manager"
+  },
+  "seedPhraseIntroSidebarBulletThree": {
+    "message": "Store in a safe-deposit box."
+  },
+  "seedPhraseIntroSidebarBulletTwo": {
+    "message": "Store in a bank vault."
+  },
+  "seedPhraseIntroSidebarCopyOne": {
+    "message": "Your recovery phrase is the “master key” to your wallet and funds."
+  },
+  "seedPhraseIntroSidebarCopyThree": {
+    "message": "If someone asks for your recovery phrase, they are most likely trying to scam you."
+  },
+  "seedPhraseIntroSidebarCopyTwo": {
+    "message": "Never, ever share your recovery phrase, even with MetaMask!"
+  },
+  "seedPhraseIntroSidebarTitleOne": {
+    "message": "What is a recovery phrase?"
+  },
+  "seedPhraseIntroSidebarTitleThree": {
+    "message": "Should I share my recovery phrase?"
+  },
+  "seedPhraseIntroSidebarTitleTwo": {
+    "message": "How do I save my recovery phrase?"
+  },
+  "seedPhraseIntroTitle": {
+    "message": "Secure your wallet"
+  },
+  "seedPhraseIntroTitleCopy": {
+    "message": "Before getting started, watch this short video to learn about your recovery phrase and how to keep your wallet safe."
+  },
   "seedPhrasePlaceholder": {
     "message": "Separate each word with a single space"
   },
@@ -1809,7 +1863,7 @@
     "description": "$1 is the number of quotes that the user can select from when opening the list of quotes on the 'view quote' screen"
   },
   "swapNetworkFeeSummary": {
-    "message": "The network fee covers the cost of processing your swap and storing it on the Ethereum network. MetaMask does not profit from this fee."
+    "message": "The network fee covers the cost of processing your swap and storing it on the $1 network. MetaMask does not profit from this fee."
   },
   "swapNewQuoteIn": {
     "message": "New quotes in $1",
@@ -1958,7 +2012,8 @@
     "message": "Using the best quote"
   },
   "swapVerifyTokenExplanation": {
-    "message": "Multiple tokens can use the same name and symbol. Check Etherscan to verify this is the token you're looking for."
+    "message": "Multiple tokens can use the same name and symbol. Check $1 to verify this is the token you're looking for.",
+    "description": "This appears in a tooltip next to the verifyThisTokenOn message. It gives the user more information about why they should check the token on a block explorer. $1 will be the name or url of the block explorer, which will be the translation of 'etherscan' or a block explorer url specified for a custom network."
   },
   "swapViewToken": {
     "message": "View $1"
