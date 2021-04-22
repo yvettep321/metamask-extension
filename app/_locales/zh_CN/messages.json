@@ -562,9 +562,6 @@
   "endOfFlowMessage6": {
     "message": "如果您需要再次备份账户助记词，请通过设置 -> 安全选项完成该操作。"
   },
-  "endOfFlowMessage7": {
-    "message": "如果您仍存有疑问或发现任何可疑的地方，请发送电子邮件至 support@metamask.io 进行咨询。"
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask 无法恢复您的账户助记词。"
   },
@@ -608,14 +605,6 @@
   "errorName": {
     "message": "代码：$1",
     "description": "Displayed error name for debugging purposes. $1 is the error name"
-  },
-  "errorPageMessage": {
-    "message": "请重新加载页面重试，或通过 support@metamask.io 联系支持。",
-    "description": "Message displayed on generic error page in the fullscreen or notification UI"
-  },
-  "errorPagePopupMessage": {
-    "message": "请关闭并重新打开弹窗再试一次，或通过 support@metamask.io 联系支持。",
-    "description": "Message displayed on generic error page in the popup UI"
   },
   "errorPageTitle": {
     "message": "MetaMask 遇到了一个错误",
@@ -1138,9 +1127,6 @@
     "message": "“$1”会关闭此标签，直接回到 $2",
     "description": "Return the user to the site that initiated onboarding"
   },
-  "onlyAddTrustedNetworks": {
-    "message": "恶意的 Ethereum 以太坊网络提供商可以伪造区块链状态，并记录您的网络活动。只添加您信任的自定义网络。"
-  },
   "onlyAvailableOnMainnet": {
     "message": "仅在主网（mainnet）上提供"
   },
@@ -1224,15 +1210,6 @@
   },
   "proposedApprovalLimit": {
     "message": "拟议的审批上限"
-  },
-  "protectYourKeys": {
-    "message": "妥善保管您的密钥！"
-  },
-  "protectYourKeysMessage1": {
-    "message": "请注意个人账户助记词的安全。报告显示有多个网站企图伪造 MetaMask。MetaMask 绝不会要求您提供个人账户助记词！"
-  },
-  "protectYourKeysMessage2": {
-    "message": "请妥善保管您的账户助记词。如果您发现任何可疑的地方，或无法确认网络安全性，请发送电子邮件至 support@metamask.io 进行咨询"
   },
   "provide": {
     "message": "提供"
@@ -1415,17 +1392,11 @@
   "selectAnAccountHelp": {
     "message": "选择在 MetaMask 中查看的账户"
   },
-  "selectCurrency": {
-    "message": "选择货币"
-  },
   "selectEachPhrase": {
     "message": "请选择每个单词，以确保其正确性。"
   },
   "selectHdPath": {
     "message": "选择 HD 路径"
-  },
-  "selectLocale": {
-    "message": "选择语言区域"
   },
   "selectPathHelp": {
     "message": "如果下列账户中没有您当前所持有的 Ledger 账户，请将路径切换至“Legacy (MEW / MyCrypto)”"
@@ -1441,9 +1412,6 @@
   },
   "sendAmount": {
     "message": "发送数额"
-  },
-  "sendETH": {
-    "message": "发送 ETH"
   },
   "sendSpecifiedTokens": {
     "message": "发送 $1",
@@ -1654,9 +1622,6 @@
   "swapEstimatedNetworkFeesInfo": {
     "message": "这是预估的用于完成您的兑换所使用的网络手续费。实际数额可能会根据网络条件而变化。"
   },
-  "swapFailedErrorDescription": {
-    "message": "您的资金是安全的，仍然可以在您的钱包中使用。"
-  },
   "swapFailedErrorTitle": {
     "message": "兑换失败"
   },
@@ -1674,24 +1639,6 @@
   },
   "swapHighSlippageWarning": {
     "message": "滑点数量非常大。确保您知道您的操作！"
-  },
-  "swapIntroLearnMoreHeader": {
-    "message": "想了解更多信息？"
-  },
-  "swapIntroLearnMoreLink": {
-    "message": "了解更多关于 MetaMask Swap（兑换）"
-  },
-  "swapIntroLiquiditySourcesLabel": {
-    "message": "流动资金来源包括："
-  },
-  "swapIntroPopupSubTitle": {
-    "message": "现在您可以直接在 MetaMask 钱包中兑换代币。MetaMask Swaps（兑换）结合了多个去中心化交易所聚合商、专业做市商和个人 DEX，确保 MetaMask 用户始终以最低的网络费用获得最佳价格。"
-  },
-  "swapIntroPopupTitle": {
-    "message": "代币兑换来了！"
-  },
-  "swapLearnMoreContractsAuditReview": {
-    "message": "查看我们的官方合约审计"
   },
   "swapLowSlippageError": {
     "message": "交易可能失败，最大滑点过低。"
@@ -1812,9 +1759,6 @@
   },
   "swapSourceInfo": {
     "message": "我们搜索多个流动性来源（交易所、聚合商和专业做市商），以找到最好的利率和最低的网络手续费。"
-  },
-  "swapStartSwapping": {
-    "message": "开始兑换"
   },
   "swapSwapFrom": {
     "message": "兑换自"

@@ -5,7 +5,6 @@ import { compose } from 'redux';
 import {
   getBlockGasLimit,
   getConversionRate,
-  getCurrentNetwork,
   getGasLimit,
   getGasPrice,
   getGasTotal,
@@ -22,6 +21,9 @@ import {
   getQrCodeData,
   getSelectedAddress,
   getAddressBook,
+  getSendTokenAddress,
+  isCustomPriceExcessive,
+  getCurrentChainId,
 } from '../../selectors';
 
 import {
@@ -54,7 +56,7 @@ function mapStateToProps(state) {
     gasLimit: getGasLimit(state),
     gasPrice: getGasPrice(state),
     gasTotal: getGasTotal(state),
-    network: getCurrentNetwork(state),
+    chainId: getCurrentChainId(state),
     primaryCurrency: getPrimaryCurrency(state),
     qrCodeData: getQrCodeData(state),
     selectedAddress: getSelectedAddress(state),
@@ -65,6 +67,8 @@ function mapStateToProps(state) {
     tokens: getTokens(state),
     tokenBalance: getTokenBalance(state),
     tokenContract: getSendTokenContract(state),
+    sendTokenAddress: getSendTokenAddress(state),
+    gasIsExcessive: isCustomPriceExcessive(state, true),
   };
 }
 

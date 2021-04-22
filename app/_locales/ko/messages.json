@@ -553,9 +553,6 @@
   "endOfFlowMessage6": {
     "message": "시드 구문을 다시 백업해야 한다면 설정 -> 보안에서 시드 구문을 찾을 수 있습니다."
   },
-  "endOfFlowMessage7": {
-    "message": "질문이 있거나 피싱으로 의심되는 행위를 목격했다면 support@metamask.io로 이메일을 보내세요."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask에서는 시드 구문을 복구할 수 없습니다."
   },
@@ -599,14 +596,6 @@
   "errorName": {
     "message": "코드: $1",
     "description": "Displayed error name for debugging purposes. $1 is the error name"
-  },
-  "errorPageMessage": {
-    "message": "페이지를 새로고침하여 다시 시도하거나 support@metamask.io에 요청하여 도움을 받으세요.",
-    "description": "Message displayed on generic error page in the fullscreen or notification UI"
-  },
-  "errorPagePopupMessage": {
-    "message": "팝업을 닫은 후 다시 열어 다시 시도하거나 support@metamask.io에 요청하여 도움을 받으세요.",
-    "description": "Message displayed on generic error page in the popup UI"
   },
   "errorPageTitle": {
     "message": "MetaMask에서 오류 발생",
@@ -1126,9 +1115,6 @@
     "message": "\"$1\"에서 이 탭을 닫고 $2(으)로 돌아갑니다.",
     "description": "Return the user to the site that initiated onboarding"
   },
-  "onlyAddTrustedNetworks": {
-    "message": "악성 이더리움 네트워크 공급업체는 블록체인 상태를 거짓으로 보고하고 네트워크 활동을 기록할 수 있습니다. 신뢰하는 맞춤형 네트워크만 추가하세요."
-  },
   "onlyAvailableOnMainnet": {
     "message": "메인넷에서만 사용 가능"
   },
@@ -1212,15 +1198,6 @@
   },
   "proposedApprovalLimit": {
     "message": "제안된 승인 한도"
-  },
-  "protectYourKeys": {
-    "message": "키를 보호하세요!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "시드 구문을 조심하세요. MetaMask를 흉내 내는 웹사이트가 보고되고 있습니다. MetaMask에서는 시드 구문을 절대로 물어보지 않습니다!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "시드 구문을 안전하게 보관하세요. 피싱으로 의심되는 행위를 목격했거나 웹사이트가 수상하다면 support@metamask.io로 이메일을 보내세요."
   },
   "provide": {
     "message": "제공"
@@ -1403,17 +1380,11 @@
   "selectAnAccountHelp": {
     "message": "MetaMask에서 확인할 계정 선택"
   },
-  "selectCurrency": {
-    "message": "통화 선택"
-  },
   "selectEachPhrase": {
     "message": "각 구문을 선택하여 구문이 올바른지 확인하세요."
   },
   "selectHdPath": {
     "message": "HD 경로 선택"
-  },
-  "selectLocale": {
-    "message": "로캘 선택"
   },
   "selectPathHelp": {
     "message": "아래에 기존 Ledger 계정이 표시되지 않는다면 경로를 \"Legacy(MEW / MyCrypto)\"로 변경해 보세요."
@@ -1429,9 +1400,6 @@
   },
   "sendAmount": {
     "message": "금액 보내기"
-  },
-  "sendETH": {
-    "message": "ETH 보내기"
   },
   "sendSpecifiedTokens": {
     "message": "$1 보내기",
@@ -1639,9 +1607,6 @@
   "swapEstimatedNetworkFeesInfo": {
     "message": "스왑을 완료하는 데 사용할 네트워크 요금 예상치입니다. 실제 금액은 네트워크 조건에 따라 달라질 수 있습니다."
   },
-  "swapFailedErrorDescription": {
-    "message": "자금은 안전하며 지갑에서 계속 사용할 수 있습니다."
-  },
   "swapFailedErrorTitle": {
     "message": "스왑 실패"
   },
@@ -1659,24 +1624,6 @@
   },
   "swapHighSlippageWarning": {
     "message": "슬리패지 금액이 아주 큽니다. 현재 어떤 작업을 하고 있는지 확인하세요!"
-  },
-  "swapIntroLearnMoreHeader": {
-    "message": "자세한 정보를 확인하고 싶으신가요?"
-  },
-  "swapIntroLearnMoreLink": {
-    "message": "MetaMask Swaps에 대해 자세히 알아보기"
-  },
-  "swapIntroLiquiditySourcesLabel": {
-    "message": "다음을 포함한 유동성 소스:"
-  },
-  "swapIntroPopupSubTitle": {
-    "message": "이제 MetaMask 지갑에서 토큰을 바로 스왑할 수 있습니다. MetaMask Swaps는 다양한 분산형 교환 애그리게이터, 투자전문기관, 개별 DEX를 결합하여 MetaMask 사용자가 언제든 최저 네트워크 요금으로 최상의 가격을 얻을 수 있게 합니다."
-  },
-  "swapIntroPopupTitle": {
-    "message": "토큰 스왑은 여기서 진행됩니다!"
-  },
-  "swapLearnMoreContractsAuditReview": {
-    "message": "당사의 공식 계약 감사 검토"
   },
   "swapLowSlippageError": {
     "message": "거래가 실패할 수도 있습니다. 최대 슬리패지가 너무 낮습니다."
@@ -1779,9 +1726,6 @@
   },
   "swapSourceInfo": {
     "message": "당사에서는 여러 유동성 소스(교환, 애그리게이터, 투자전문기관)를 검색하여 최상의 요율과 최저 네트워크 요금을 찾습니다."
-  },
-  "swapStartSwapping": {
-    "message": "스왑 시작"
   },
   "swapSwapFrom": {
     "message": "다음에서 스왑"

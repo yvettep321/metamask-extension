@@ -6,10 +6,11 @@ import {
 import { hexToDecimal } from '../helpers/utils/conversions.util';
 import txHelper from '../../lib/tx-helper';
 import {
-  TRANSACTION_CATEGORIES,
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
 } from '../../../shared/constants/transaction';
+import { transactionMatchesNetwork } from '../../../shared/modules/transaction.utils';
+import { getCurrentChainId, deprecatedGetCurrentNetworkId } from './selectors';
 import { getSelectedAddress } from '.';
 
 export const incomingTxListSelector = (state) => {
@@ -18,11 +19,15 @@ export const incomingTxListSelector = (state) => {
     return [];
   }
 
-  const { network } = state.metamask;
+  const {
+    network,
+    provider: { chainId },
+  } = state.metamask;
   const selectedAddress = getSelectedAddress(state);
   return Object.values(state.metamask.incomingTransactions).filter(
-    ({ metamaskNetworkId, txParams }) =>
-      txParams.to === selectedAddress && metamaskNetworkId === network,
+    (tx) =>
+      tx.txParams.to === selectedAddress &&
+      transactionMatchesNetwork(tx, chainId, network),
   );
 };
 export const unapprovedMsgsSelector = (state) => state.metamask.unapprovedMsgs;
@@ -36,7 +41,6 @@ export const unapprovedEncryptionPublicKeyMsgsSelector = (state) =>
   state.metamask.unapprovedEncryptionPublicKeyMsgs;
 export const unapprovedTypedMessagesSelector = (state) =>
   state.metamask.unapprovedTypedMessages;
-export const networkSelector = (state) => state.metamask.network;
 
 export const selectedAddressTxListSelector = createSelector(
   getSelectedAddress,
@@ -54,7 +58,8 @@ export const unapprovedMessagesSelector = createSelector(
   unapprovedDecryptMsgsSelector,
   unapprovedEncryptionPublicKeyMsgsSelector,
   unapprovedTypedMessagesSelector,
-  networkSelector,
+  deprecatedGetCurrentNetworkId,
+  getCurrentChainId,
   (
     unapprovedMsgs = {},
     unapprovedPersonalMsgs = {},
@@ -62,6 +67,7 @@ export const unapprovedMessagesSelector = createSelector(
     unapprovedEncryptionPublicKeyMsgs = {},
     unapprovedTypedMessages = {},
     network,
+    chainId,
   ) =>
     txHelper(
       {},
@@ -71,6 +77,7 @@ export const unapprovedMessagesSelector = createSelector(
       unapprovedEncryptionPublicKeyMsgs,
       unapprovedTypedMessages,
       network,
+      chainId,
     ) || [],
 );
 
@@ -221,13 +228,9 @@ export const nonceSortedTransactionsSelector = createSelector(
         status,
         type,
         time: txTime,
-        transactionCategory,
       } = transaction;
 
-      if (
-        typeof nonce === 'undefined' ||
-        transactionCategory === TRANSACTION_CATEGORIES.INCOMING
-      ) {
+      if (typeof nonce === 'undefined' || type === TRANSACTION_TYPES.INCOMING) {
         const transactionGroup = {
           transactions: [transaction],
           initialTransaction: transaction,
@@ -236,7 +239,7 @@ export const nonceSortedTransactionsSelector = createSelector(
           hasCancelled: false,
         };
 
-        if (transactionCategory === TRANSACTION_CATEGORIES.INCOMING) {
+        if (type === TRANSACTION_TYPES.INCOMING) {
           incomingTransactionGroups.push(transactionGroup);
         } else {
           insertTransactionGroupByTime(

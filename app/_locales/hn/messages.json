@@ -330,17 +330,11 @@
   "seedPhraseReq": {
     "message": "बीज वाक्यांश 12 शब्द लंबा हैं"
   },
-  "selectCurrency": {
-    "message": "मुद्रा चुनें"
-  },
   "selectType": {
     "message": "प्रकार चुनें"
   },
   "send": {
     "message": "भेजें"
-  },
-  "sendETH": {
-    "message": "भेजें ETH"
   },
   "sendTokens": {
     "message": "भेजें टोकन"

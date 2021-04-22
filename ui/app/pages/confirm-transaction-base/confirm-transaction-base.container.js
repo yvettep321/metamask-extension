@@ -39,6 +39,7 @@ import {
   transactionFeeSelector,
 } from '../../selectors';
 import { getMostRecentOverviewPage } from '../../ducks/history/history';
+import { transactionMatchesNetwork } from '../../../../shared/modules/transaction.utils';
 import ConfirmTransactionBase from './confirm-transaction-base.component';
 
 const casedContractMap = Object.keys(contractMap).reduce((acc, base) => {
@@ -77,14 +78,10 @@ const mapStateToProps = (state, ownProps) => {
     unapprovedTxs,
     metaMetricsSendCount,
     nextNonce,
+    provider: { chainId },
   } = metamask;
   const { tokenData, txData, tokenProps, nonce } = confirmTransaction;
-  const {
-    txParams = {},
-    lastGasPrice,
-    id: transactionId,
-    transactionCategory,
-  } = txData;
+  const { txParams = {}, lastGasPrice, id: transactionId, type } = txData;
   const transaction =
     Object.values(unapprovedTxs).find(
       ({ id }) => id === (transactionId || Number(paramsTransactionId)),
@@ -127,7 +124,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   const currentNetworkUnapprovedTxs = Object.keys(unapprovedTxs)
-    .filter((key) => unapprovedTxs[key].metamaskNetworkId === network)
+    .filter((key) =>
+      transactionMatchesNetwork(unapprovedTxs[key], chainId, network),
+    )
     .reduce((acc, key) => ({ ...acc, [key]: unapprovedTxs[key] }), {});
   const unapprovedTxCount = valuesFor(currentNetworkUnapprovedTxs).length;
 
@@ -185,7 +184,7 @@ const mapStateToProps = (state, ownProps) => {
     hideSubtitle: !isMainnet && !showFiatInTestnets,
     hideFiatConversion: !isMainnet && !showFiatInTestnets,
     metaMetricsSendCount,
-    transactionCategory,
+    type,
     nextNonce,
     mostRecentOverviewPage: getMostRecentOverviewPage(state),
     isMainnet,

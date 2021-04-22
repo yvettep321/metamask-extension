@@ -341,9 +341,6 @@
   "endOfFlowMessage6": {
     "message": "Si vous avez besoin de sauvegarder à nouveau votre phrase de départ, vous pouvez la trouver dans Paramètres -> Sécurité."
   },
-  "endOfFlowMessage7": {
-    "message": "Si vous avez des questions ou remarquez quelque chose de suspect, envoyez un e-mail à : support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask ne peut pas récupérer votre phrase de départ. Renseignez-vous davantage."
   },
@@ -757,15 +754,6 @@
   "privateNetwork": {
     "message": "Réseau privé"
   },
-  "protectYourKeys": {
-    "message": "Protégez vos clés !"
-  },
-  "protectYourKeysMessage1": {
-    "message": "Soyez prudent avec votre phrase mnémotechnique — on nous a signalé des sites web qui tentaient d'imiter MetaMask. MetaMask ne vous demandera jamais votre phrase mnémotechnique !"
-  },
-  "protectYourKeysMessage2": {
-    "message": "Ne dévoilez pas votre phrase. Si vous remarquez quelque chose de suspect ou que vous avez un doute à propos d'un site web, envoyez un e-mail à : support@metamask.io"
-  },
   "queue": {
     "message": "File d'attente"
   },
@@ -913,17 +901,11 @@
   "selectAnAccountHelp": {
     "message": "Selectionner le compte à afficher dans MetaMask"
   },
-  "selectCurrency": {
-    "message": "Selectionner Devise"
-  },
   "selectEachPhrase": {
     "message": "Veuillez sélectionner chaque phrase afin de vous assurer qu'elle est correcte."
   },
   "selectHdPath": {
     "message": "Selectioner le \"Path HD\""
-  },
-  "selectLocale": {
-    "message": "Selectionner la localisation"
   },
   "selectPathHelp": {
     "message": "Si vos comptes Ledger n'apparaissent pas ci-dessous, essayez de selectionner le path \"Legacy (MEW / MyCrypto)\""
@@ -936,9 +918,6 @@
   },
   "sendAmount": {
     "message": "Envoyer le montant"
-  },
-  "sendETH": {
-    "message": "Envoyer des ETH"
   },
   "sendTokens": {
     "message": "Envoyer des jetons"

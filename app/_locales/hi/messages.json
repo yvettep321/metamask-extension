@@ -553,9 +553,6 @@
   "endOfFlowMessage6": {
     "message": "यदि आपको अपने सीड फ्रेज़ को फिर से बैकअप लेने की आवश्यकता है, तो आप इसे सेटिंग्स -> सुरक्षा में पा सकते हैं।"
   },
-  "endOfFlowMessage7": {
-    "message": "यदि आपको कभी कुछ पूछना हो या कुछ गड़बड़ लगे, तो support@metamask.io पर ईमेल करें।"
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask आपके सीडफ्रेज़ को पुनर्प्राप्त नहीं कर सकता है।"
   },
@@ -599,14 +596,6 @@
   "errorName": {
     "message": "कोड: $1",
     "description": "Displayed error name for debugging purposes. $1 is the error name"
-  },
-  "errorPageMessage": {
-    "message": "पृष्ठ को पुनः लोड करके पुनः प्रयास करें या support@metamask.io पर सहायता से संपर्क करें",
-    "description": "Message displayed on generic error page in the fullscreen or notification UI"
-  },
-  "errorPagePopupMessage": {
-    "message": "पॉपअप को बंद करके और फिर से खोलने की कोशिश करें या support@metamask.io पर सहायता से संपर्क करें",
-    "description": "Message displayed on generic error page in the popup UI"
   },
   "errorPageTitle": {
     "message": "MetaMask में कोई त्रुटि हुई",
@@ -1213,15 +1202,6 @@
   "proposedApprovalLimit": {
     "message": "प्रस्तावित अनुमोदन सीमा"
   },
-  "protectYourKeys": {
-    "message": "अपनी कुंजियों को सुरक्षित रखें!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "अपने सीडफ्रेज़ को लेकर सावधान रहें — ऐसी वेबसाइटों की रिपोर्टें आई हैं, जो MetaMask की नकल करने का प्रयास करती हैं। MetaMask कभी भी आपके सीड फ्रेज़ के बारे में नहीं पूछेगा!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "अपने वाक्यांश को सुरक्षित रखें। यदि आपको कुछ गड़बड़ लगे या आप किसी वेबसाइट के बारे में अनिश्चित हैं, तो support@metamask.io पर ईमेल करें"
-  },
   "provide": {
     "message": "प्रदान करें"
   },
@@ -1403,17 +1383,11 @@
   "selectAnAccountHelp": {
     "message": "MetaMask में देखने के लिए खाते का चयन करें"
   },
-  "selectCurrency": {
-    "message": "मुद्रा का चयन करें"
-  },
   "selectEachPhrase": {
     "message": "कृपया प्रत्येक वाक्यांश का चयन करें, ताकि यह सुनिश्चित हो सके कि यह सही है।"
   },
   "selectHdPath": {
     "message": "HD पथ का चयन करें"
-  },
-  "selectLocale": {
-    "message": "लोकेल का चयन करें"
   },
   "selectPathHelp": {
     "message": "यदि आपको अपने मौजूदा लेजर खाते नीचे नहीं दिखाई देते हैं, तो पथ को \"Legacy (MEW / MyCrypto)\" पर स्विच करने का प्रयास करें"
@@ -1429,9 +1403,6 @@
   },
   "sendAmount": {
     "message": "राशि भेजें"
-  },
-  "sendETH": {
-    "message": "ETH भेजें"
   },
   "sendSpecifiedTokens": {
     "message": "$1 भेजें",
@@ -1639,9 +1610,6 @@
   "swapEstimatedNetworkFeesInfo": {
     "message": "यह नेटवर्क शुल्क का एक अनुमान है, जिसे आपके स्वैप को पूरा करने के लिए उपयोग किया जाएगा। नेटवर्क की स्थितियों के अनुसार वास्तविक राशि बदल सकती है।"
   },
-  "swapFailedErrorDescription": {
-    "message": "आपका धन सुरक्षित है और अभी भी आपके वॉलेट में उपलब्ध है।"
-  },
   "swapFailedErrorTitle": {
     "message": "स्वैप विफल रहा"
   },
@@ -1659,24 +1627,6 @@
   },
   "swapHighSlippageWarning": {
     "message": "स्लिपेज राशि बहुत अधिक है। सुनिश्चित करें कि आप जानते हैं कि आप क्या कर रहे हैं!"
-  },
-  "swapIntroLearnMoreHeader": {
-    "message": "अधिक सीखना चाहते हैं?"
-  },
-  "swapIntroLearnMoreLink": {
-    "message": "MetaMask स्वैप के बारे में अधिक जानें"
-  },
-  "swapIntroLiquiditySourcesLabel": {
-    "message": "चलनिधि स्रोतों में निम्न शामिल हैं:"
-  },
-  "swapIntroPopupSubTitle": {
-    "message": "अब आप अपने MetaMask वॉलेट में सीधे टोकन स्वैप कर सकते हैं। MetaMask स्वैप कई विकेंद्रीकृत विनिमय एग्रीगेटर, पेशेवर बाजार निर्माताओं और व्यक्तिगत DEX को जोड़ता है, ताकि MetaMask उपयोगकर्ताओं को हमेशा सबसे कम नेटवर्क शुल्क के साथ सबसे अच्छा मूल्य मिल सके।"
-  },
-  "swapIntroPopupTitle": {
-    "message": "टोकन स्वैपिंग यहाँ उपलब्ध है!"
-  },
-  "swapLearnMoreContractsAuditReview": {
-    "message": "हमारे आधिकारिक अनुबंधों के ऑडिट की समीक्षा करें"
   },
   "swapLowSlippageError": {
     "message": "लेनदेन विफल हो सकता है, अधिकतम स्लिपेज बहुत कम हो सकता है।"
@@ -1779,9 +1729,6 @@
   },
   "swapSourceInfo": {
     "message": "हम सर्वोत्तम दरों और न्यूनतम नेटवर्क शुल्क का पता लगाने के लिए कई चलनिधि स्रोतों (एक्सचेंज, एग्रीगेटर और पेशेवर बाजार निर्माताओं) की खोज करते हैं।"
-  },
-  "swapStartSwapping": {
-    "message": "स्वैप करना शुरू करें"
   },
   "swapSwapFrom": {
     "message": "इससे स्वैप करें"

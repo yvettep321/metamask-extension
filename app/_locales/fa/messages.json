@@ -350,9 +350,6 @@
   "endOfFlowMessage6": {
     "message": "در صورتیکه شما نیاز به گرفتن دوباره پشتیبان عبارت بازیاب داشته باشید، میتوانید آنرا در Settings -> Security دریافت نمایید."
   },
-  "endOfFlowMessage7": {
-    "message": "در صورتیکه پرسشی داشته یا چیزی مشکوک را میبینید، به support@metamask.io ایمیل کنید."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask نمیتواند عبارت بازیاب تان را دوباره دریافت نماید.\nبیشتر بدانید."
   },
@@ -775,15 +772,6 @@
   "privateNetwork": {
     "message": "شبکه شخصی"
   },
-  "protectYourKeys": {
-    "message": "کلید های خود را حفظ کنید!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "مراقب عبارت بازیاب تان باشید - گفته هایی وجود دارد که وبسایت ها تلاش میکنند تا از MetaMask نسخه برداری کنند. MetaMask هرگز از شما عبارت بازیاب را نمیپرسد!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "عبارت تان را مصؤن نگهدارید. در صورت مشاهده چیز مشکوک، یا در صورتیکه در مورد یک وبسایت مطمئن نیستید، به support@metamask.io ایمیل کنید"
-  },
   "queue": {
     "message": "صف"
   },
@@ -931,17 +919,11 @@
   "selectAnAccountHelp": {
     "message": "برای مشاهده MetaMask حساب را انتخاب نمایید"
   },
-  "selectCurrency": {
-    "message": "واحد پول را انتخاب کنید"
-  },
   "selectEachPhrase": {
     "message": "لطفًا جهت اطمینان از درستی، هر عبارت را انتخاب کنید."
   },
   "selectHdPath": {
     "message": "انتخاب مسیر HD"
-  },
-  "selectLocale": {
-    "message": "محل را انتخاب کنید"
   },
   "selectPathHelp": {
     "message": "در صورتیکه شما حساب های موجود دفتر حساب را در ذیل نمیبینید، مسیر ها به \"Legacy (MEW / MyCrypto)\"  تغییر دهید"
@@ -954,9 +936,6 @@
   },
   "sendAmount": {
     "message": "ارسال مبلغ"
-  },
-  "sendETH": {
-    "message": "ارسال ETH"
   },
   "sendTokens": {
     "message": "رمزیاب ها را ارسال کنید"

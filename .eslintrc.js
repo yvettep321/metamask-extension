@@ -31,6 +31,7 @@ module.exports = {
     'test/e2e/send-eth-with-private-key-test/**',
     'nyc_output/**',
     '.vscode/**',
+    'lavamoat/*/policy.json',
   ],
 
   extends: [
@@ -179,7 +180,11 @@ module.exports = {
       },
     },
     {
-      files: ['development/**/*.js', 'test/e2e/benchmark.js', 'test/helper.js'],
+      files: [
+        'development/**/*.js',
+        'test/e2e/benchmark.js',
+        'test/helpers/setup-helper.js',
+      ],
       rules: {
         'node/no-process-exit': 'off',
         'node/shebang': 'off',

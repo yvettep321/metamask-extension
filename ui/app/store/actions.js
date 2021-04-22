@@ -422,33 +422,40 @@ export function connectHardware(deviceName, page, hdPath) {
   };
 }
 
-export function unlockHardwareWalletAccount(index, deviceName, hdPath) {
+export function unlockHardwareWalletAccounts(
+  indexes,
+  deviceName,
+  hdPath,
+  hdPathDescription,
+) {
   log.debug(
     `background.unlockHardwareWalletAccount`,
-    index,
+    indexes,
     deviceName,
     hdPath,
+    hdPathDescription,
   );
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(showLoadingIndication());
-    return new Promise((resolve, reject) => {
-      background.unlockHardwareWalletAccount(
-        index,
-        deviceName,
-        hdPath,
-        (err) => {
-          dispatch(hideLoadingIndication());
-          if (err) {
-            log.error(err);
-            dispatch(displayWarning(err.message));
-            reject(err);
-            return;
-          }
 
-          resolve();
-        },
-      );
-    });
+    for (const index of indexes) {
+      try {
+        await promisifiedBackground.unlockHardwareWalletAccount(
+          index,
+          deviceName,
+          hdPath,
+          hdPathDescription,
+        );
+      } catch (e) {
+        log.error(e);
+        dispatch(displayWarning(e.message));
+        dispatch(hideLoadingIndication());
+        throw e;
+      }
+    }
+
+    dispatch(hideLoadingIndication());
+    return undefined;
   };
 }
 
@@ -930,6 +937,7 @@ export function completedTx(id) {
       unapprovedPersonalMsgs,
       unapprovedTypedMessages,
       network,
+      provider: { chainId },
     } = state.metamask;
     const unconfirmedActions = txHelper(
       unapprovedTxs,
@@ -937,6 +945,7 @@ export function completedTx(id) {
       unapprovedPersonalMsgs,
       unapprovedTypedMessages,
       network,
+      chainId,
     );
     const otherUnconfirmedActions = unconfirmedActions.filter(
       (tx) => tx.id !== id,
@@ -1474,7 +1483,7 @@ export function clearPendingTokens() {
   };
 }
 
-export function createCancelTransaction(txId, customGasPrice) {
+export function createCancelTransaction(txId, customGasPrice, customGasLimit) {
   log.debug('background.cancelTransaction');
   let newTxId;
 
@@ -1483,6 +1492,7 @@ export function createCancelTransaction(txId, customGasPrice) {
       background.createCancelTransaction(
         txId,
         customGasPrice,
+        customGasLimit,
         (err, newState) => {
           if (err) {
             dispatch(displayWarning(err.message));
@@ -1772,21 +1782,13 @@ export function hideModal(payload) {
 }
 
 export function closeCurrentNotificationWindow() {
-  return (dispatch, getState) => {
+  return (_, getState) => {
     if (
       getEnvironmentType() === ENVIRONMENT_TYPE_NOTIFICATION &&
       !hasUnconfirmedTransactions(getState())
     ) {
       global.platform.closeCurrentWindow();
-
-      dispatch(closeNotificationWindow());
     }
-  };
-}
-
-export function closeNotificationWindow() {
-  return {
-    type: actionConstants.CLOSE_NOTIFICATION_WINDOW,
   };
 }
 
@@ -2050,6 +2052,10 @@ export function setDefaultHomeActiveTabName(value) {
 
 export function setUseNativeCurrencyAsPrimaryCurrencyPreference(value) {
   return setPreference('useNativeCurrencyAsPrimaryCurrency', value);
+}
+
+export function setHideZeroBalanceTokens(value) {
+  return setPreference('hideZeroBalanceTokens', value);
 }
 
 export function setShowFiatConversionOnTestnetsPreference(value) {
@@ -2421,8 +2427,12 @@ export function requestAccountsPermissionWithId(origin) {
  * @param {string[]} accounts - The accounts to expose, if any.
  */
 export function approvePermissionsRequest(request, accounts) {
-  return () => {
-    background.approvePermissionsRequest(request, accounts);
+  return (dispatch) => {
+    background.approvePermissionsRequest(request, accounts, (err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
   };
 }
 
@@ -2449,8 +2459,12 @@ export function rejectPermissionsRequest(requestId) {
  * Clears the given permissions for the given origin.
  */
 export function removePermissionsFor(domains) {
-  return () => {
-    background.removePermissionsFor(domains);
+  return (dispatch) => {
+    background.removePermissionsFor(domains, (err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
   };
 }
 
@@ -2458,8 +2472,50 @@ export function removePermissionsFor(domains) {
  * Clears all permissions for all domains.
  */
 export function clearPermissions() {
-  return () => {
-    background.clearPermissions();
+  return (dispatch) => {
+    background.clearPermissions((err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
+  };
+}
+
+// Pending Approvals
+
+/**
+ * Resolves a pending approval and closes the current notification window if no
+ * further approvals are pending after the background state updates.
+ * @param {string} id - The pending approval id
+ * @param {any} [value] - The value required to confirm a pending approval
+ */
+export function resolvePendingApproval(id, value) {
+  return async (dispatch) => {
+    await promisifiedBackground.resolvePendingApproval(id, value);
+    // Before closing the current window, check if any additional confirmations
+    // are added as a result of this confirmation being accepted
+    const { pendingApprovals } = await forceUpdateMetamaskState(dispatch);
+    if (Object.values(pendingApprovals).length === 0) {
+      dispatch(closeCurrentNotificationWindow());
+    }
+  };
+}
+
+/**
+ * Rejects a pending approval and closes the current notification window if no
+ * further approvals are pending after the background state updates.
+ * @param {string} id - The pending approval id
+ * @param {Error} [error] - The error to throw when rejecting the approval
+ */
+export function rejectPendingApproval(id, error) {
+  return async (dispatch) => {
+    await promisifiedBackground.rejectPendingApproval(id, error);
+    // Before closing the current window, check if any additional confirmations
+    // are added as a result of this confirmation being rejected
+    const { pendingApprovals } = await forceUpdateMetamaskState(dispatch);
+    if (Object.values(pendingApprovals).length === 0) {
+      dispatch(closeCurrentNotificationWindow());
+    }
   };
 }
 
@@ -2512,16 +2568,6 @@ export function setConnectedStatusPopoverHasBeenShown() {
   };
 }
 
-export function setSwapsWelcomeMessageHasBeenShown() {
-  return () => {
-    background.setSwapsWelcomeMessageHasBeenShown((err) => {
-      if (err) {
-        throw new Error(err.message);
-      }
-    });
-  };
-}
-
 export async function setAlertEnabledness(alertId, enabledness) {
   await promisifiedBackground.setAlertEnabledness(alertId, enabledness);
 }
@@ -2566,7 +2612,11 @@ export function getContractMethodData(data = '') {
 
     return getMethodDataAsync(fourBytePrefix).then(({ name, params }) => {
       dispatch(loadingMethodDataFinished());
-      background.addKnownMethodData(fourBytePrefix, { name, params });
+      background.addKnownMethodData(fourBytePrefix, { name, params }, (err) => {
+        if (err) {
+          dispatch(displayWarning(err.message));
+        }
+      });
       return { name, params };
     });
   };
@@ -2814,4 +2864,10 @@ export function trackMetaMetricsEvent(payload, options) {
  */
 export function trackMetaMetricsPage(payload, options) {
   return promisifiedBackground.trackMetaMetricsPage(payload, options);
+}
+
+export function updateViewedNotifications(notificationIdViewedStatusMap) {
+  return promisifiedBackground.updateViewedNotifications(
+    notificationIdViewedStatusMap,
+  );
 }

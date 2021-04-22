@@ -344,9 +344,6 @@
   "endOfFlowMessage6": {
     "message": "Ikiwa unataka kuhifadhi tena kwa njia mbadla kirai chako kianzio, unaweza kukipata kwenye Mipangilio -> Usalama."
   },
-  "endOfFlowMessage7": {
-    "message": "Ikiwa una maswali au umeona kitu ambacho ni cha ulaghai, tuma barua pepe support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask haiwezi kurejesha kirai chako kianzio. Pata maelezo ziadi."
   },
@@ -753,15 +750,6 @@
   "privateNetwork": {
     "message": "Mtandao Binafsi"
   },
-  "protectYourKeys": {
-    "message": "Linda Funguo Zako!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "Kuwa mwangalifu na kirai kianzio chako - kumekuwa na taarifa za tovuti ambazo zinajaribu kuiga MetaMask. MetaMask kamwe haitakuomba kirai kianzio chako!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "Weka salama kirai kianzio chako. Ikiwa unaona kitu cha kilaghai, au huna uhakika na tovuti fulani, tuma barua pepe kwenda support@metamask.io"
-  },
   "queue": {
     "message": "Foleni"
   },
@@ -909,17 +897,11 @@
   "selectAnAccountHelp": {
     "message": "Chagua akaunti kuangalia kwenye MetaMask"
   },
-  "selectCurrency": {
-    "message": "Chagua Sarafu"
-  },
   "selectEachPhrase": {
     "message": "Tafadhali chagua kila kirai ili kuhakikisha kuwa hii ni sahihi."
   },
   "selectHdPath": {
     "message": "Chagua Njia ya HD"
-  },
-  "selectLocale": {
-    "message": "Chagua Lugha"
   },
   "selectPathHelp": {
     "message": "Ikiwa huoni akaunti zako za Leja za sasa hapa chini, charibu kubadilisha njia kwenda \"Legacy (MEW / MyCrypto)\"  "
@@ -932,9 +914,6 @@
   },
   "sendAmount": {
     "message": "Tuma Kiasi"
-  },
-  "sendETH": {
-    "message": "Tuma ETH"
   },
   "sendTokens": {
     "message": "Tuma Vianzio"

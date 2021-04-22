@@ -22,16 +22,19 @@ async function addEthereumChainHandler(
   end,
   {
     addCustomRpc,
-    getCurrentNetwork,
+    getCurrentChainId,
     findCustomRpcBy,
     updateRpcTarget,
     requestUserApproval,
+    sendMetrics,
   },
 ) {
   if (!req.params?.[0] || typeof req.params[0] !== 'object') {
     return end(
       ethErrors.rpc.invalidParams({
-        message: `Expected single, object parameter. Received:\n${req.params}`,
+        message: `Expected single, object parameter. Received:\n${JSON.stringify(
+          req.params,
+        )}`,
       }),
     );
   }
@@ -121,8 +124,8 @@ async function addEthereumChainHandler(
   const existingNetwork = findCustomRpcBy({ chainId: _chainId });
 
   if (existingNetwork !== null) {
-    const currentNetwork = getCurrentNetwork();
-    if (currentNetwork.chainId === _chainId) {
+    const currentChainId = getCurrentChainId();
+    if (currentChainId === _chainId) {
       res.result = null;
       return end();
     }
@@ -226,6 +229,27 @@ async function addEthereumChainHandler(
         },
       }),
     );
+
+    sendMetrics({
+      event: 'Custom Network Added',
+      category: 'Network',
+      referrer: {
+        url: origin,
+      },
+      sensitiveProperties: {
+        chain_id: _chainId,
+        rpc_url: firstValidRPCUrl,
+        network_name: _chainName,
+        // Including network to override the default network
+        // property included in all events. For RPC type networks
+        // the MetaMetrics controller uses the rpcUrl for the network
+        // property.
+        network: firstValidRPCUrl,
+        symbol: ticker,
+        block_explorer_url: firstValidBlockExplorerUrl,
+        source: 'dapp',
+      },
+    });
 
     await updateRpcTarget(
       await requestUserApproval({

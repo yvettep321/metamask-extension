@@ -13,9 +13,11 @@ const Popover = ({
   onBack,
   onClose,
   className,
+  mediumHeight,
   contentClassName,
   showArrow,
   CustomBackground,
+  contentRef,
 }) => {
   const t = useI18nContext();
   return (
@@ -25,7 +27,11 @@ const Popover = ({
       ) : (
         <div className="popover-bg" onClick={onClose} />
       )}
-      <section className={classnames('popover-wrap', className)}>
+      <section
+        className={classnames('popover-wrap', className, {
+          'popover-wrap--medium-height': mediumHeight,
+        })}
+      >
         {showArrow ? <div className="popover-arrow" /> : null}
         <header className="popover-header">
           <div className="popover-header__title">
@@ -42,6 +48,7 @@ const Popover = ({
             <button
               className="fas fa-times popover-header__button"
               title={t('close')}
+              data-testid="popover-close"
               onClick={onClose}
             />
           </div>
@@ -50,7 +57,10 @@ const Popover = ({
           ) : null}
         </header>
         {children ? (
-          <div className={classnames('popover-content', contentClassName)}>
+          <div
+            className={classnames('popover-content', contentClassName)}
+            ref={contentRef}
+          >
             {children}
           </div>
         ) : null}
@@ -76,6 +86,10 @@ Popover.propTypes = {
   contentClassName: PropTypes.string,
   className: PropTypes.string,
   showArrow: PropTypes.bool,
+  mediumHeight: PropTypes.bool,
+  contentRef: PropTypes.shape({
+    current: PropTypes.instanceOf(window.Element),
+  }),
 };
 
 export default class PopoverPortal extends PureComponent {

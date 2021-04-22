@@ -350,9 +350,6 @@
   "endOfFlowMessage6": {
     "message": "የዘር ሐረግዎን በድጋሚ መጠባበቂያ ለመያዝ ከፈለጉ፣ በቅንብሮች -> ግላዊነት ውስጥ ሊያገኙት ይችላሉ።"
   },
-  "endOfFlowMessage7": {
-    "message": "ጥያቄዎች ካሉዎት ወይም የሆነ አጠራጣሪ ነገር ካዩ፣ እባክዎ ለ support@metamask.io ኢሜይል ይላኩ።"
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask የዘር ሐረግዎን መልሶ ማግኘት አልቻለም። ተጨማሪ መረጃ ያግኙ።"
   },
@@ -772,15 +769,6 @@
   "privateNetwork": {
     "message": "የግል አውታረ መረብ"
   },
-  "protectYourKeys": {
-    "message": "ቁልፎችዎን ይጠብቁ!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "ስለ ዘር ሐረግዎ ይጠንቀቁ - ራሳቸውን ከ MetaMask ጋር ለማመሳሰል የሚሞከሩ ድረ ገጾች እናሉ ሰምተናል። MetaMask በጭራሽ የዘር ሐረግዎን አይጠይቅዎትም!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "የሐረግዎን ደህንነት ይጠብቁ። ይም የሆነ አጠራጣሪ ነገር ካዩ ወይም ስለ አንድ ድረ ገጽ እርግጠኛ ካልሆኑ፣ እባክዎ ለ support@metamask.io ኢሜይል ይላኩ"
-  },
   "queue": {
     "message": "ወረፋ"
   },
@@ -928,17 +916,11 @@
   "selectAnAccountHelp": {
     "message": "መለያውን በ MetaMask ለማየት ይምረጡ"
   },
-  "selectCurrency": {
-    "message": "የገንዘብ ዓይነት ይምረጡ"
-  },
   "selectEachPhrase": {
     "message": "እባክዎ እያንዳንዱን ሐረግ በመምረጥ ትክክለኛነቱን ያረጋግጡ።"
   },
   "selectHdPath": {
     "message": "የ HD ዱካ ይምረጡ"
-  },
-  "selectLocale": {
-    "message": "አካባቢ ይምረጡ"
   },
   "selectPathHelp": {
     "message": "ነባር የሌጄር መለያዎችን ከታች ካላዩ፣ ዱካዎችን ወደ \"Legacy (MEW / MyCrypto)\" ለመቀየር ይሞክሩ"
@@ -951,9 +933,6 @@
   },
   "sendAmount": {
     "message": "መጠኑን ላክ"
-  },
-  "sendETH": {
-    "message": "ETH ላክ"
   },
   "sendTokens": {
     "message": "ተለዋጭ ስሞችን ላክ"

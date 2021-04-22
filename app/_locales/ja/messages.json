@@ -562,9 +562,6 @@
   "endOfFlowMessage6": {
     "message": "シードフレーズを再度バックアップする場合は、[設定] -> [セキュリティとプライバシー] で見つけることができます。"
   },
-  "endOfFlowMessage7": {
-    "message": "問題や不審な点がある場合は、support@metamask.io 宛に電子メールをお送りください。"
-  },
   "endOfFlowMessage8": {
     "message": "MetaMaskはシードフレーズを復元できません。"
   },
@@ -608,14 +605,6 @@
   "errorName": {
     "message": "エラー名:$1",
     "description": "Displayed error name for debugging purposes. $1 is the error name"
-  },
-  "errorPageMessage": {
-    "message": "ページをリロードして再試行するか、サポート(support@metamask.io)までお問い合わせください",
-    "description": "Message displayed on generic error page in the fullscreen or notification UI"
-  },
-  "errorPagePopupMessage": {
-    "message": "ポップアップを閉じてから再び開いてもう一度実行するか、サポート(support@metamask.io)までお問い合わせください",
-    "description": "Message displayed on generic error page in the popup UI"
   },
   "errorPageTitle": {
     "message": "MetaMaskにエラーが発生しました",
@@ -1138,9 +1127,6 @@
     "message": "\"$1\" はこのタブを閉じます。 $2 に戻ってください。",
     "description": "Return the user to the site that initiated onboarding"
   },
-  "onlyAddTrustedNetworks": {
-    "message": "悪意のあるEthereumネットワークプロバイダは、不正なブロックチェーンによりネットワーク行動を記録することがあります。信頼できるカスタムネットワークのみを追加してください。"
-  },
   "onlyAvailableOnMainnet": {
     "message": "メインネットのみ使用可能です"
   },
@@ -1224,15 +1210,6 @@
   },
   "proposedApprovalLimit": {
     "message": "承認限度額の提案"
-  },
-  "protectYourKeys": {
-    "message": "キーを保護してください!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "シードフレーズは厳重に取り扱ってください。MetaMaskの偽物がWebサイトで報告されています。MetaMaskがシードフレーズを要求することは絶対にありえません!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "シードフレーズを厳重に保管してください。不審な点がやWebサイトについて不明確な場合は、support@metamask.io まで電子メールでお問い合わせください"
   },
   "provide": {
     "message": "提供する"
@@ -1415,17 +1392,11 @@
   "selectAnAccountHelp": {
     "message": "MetaMaskで表示するアカウントを選択してください"
   },
-  "selectCurrency": {
-    "message": "通貨を選択"
-  },
   "selectEachPhrase": {
     "message": "単語を選択して、各フレーズが正しいことを確認してください。"
   },
   "selectHdPath": {
     "message": "HDパスの選択"
-  },
-  "selectLocale": {
-    "message": "言語の選択"
   },
   "selectPathHelp": {
     "message": "既存のLedgerのアカウントが以下に表示されない場合は、パスを \"Legacy (MEW / MyCrypto)\" に変えてください。"
@@ -1441,9 +1412,6 @@
   },
   "sendAmount": {
     "message": "送金額"
-  },
-  "sendETH": {
-    "message": "ETHの送金"
   },
   "sendSpecifiedTokens": {
     "message": "$1 を送る",
@@ -1654,9 +1622,6 @@
   "swapEstimatedNetworkFeesInfo": {
     "message": "これは、スワップを完了するために使用されるネットワーク手数料の推定値です。実際の額はネットワークの状態によって変わる可能性があります。"
   },
-  "swapFailedErrorDescription": {
-    "message": "資金はウォレットに安全で利用可能な状態にあります。"
-  },
   "swapFailedErrorTitle": {
     "message": "スワップに失敗しました"
   },
@@ -1674,24 +1639,6 @@
   },
   "swapHighSlippageWarning": {
     "message": "非常に大きいスリッページ額です。本当に実行するか確認してください。"
-  },
-  "swapIntroLearnMoreHeader": {
-    "message": "詳細を表示しますか?"
-  },
-  "swapIntroLearnMoreLink": {
-    "message": "MetaMask Swapsの詳細"
-  },
-  "swapIntroLiquiditySourcesLabel": {
-    "message": "流動性ソースには以下が含まれます。"
-  },
-  "swapIntroPopupSubTitle": {
-    "message": "トークンをMetaMaskで直接スワップできるようになりました。MetaMask Swapsは、多数の分散型取引所アグリゲーター、専門のマーケットメーカー、DEX取引所を統合し、ユーザーは常に最低のネットワーク手数料、最適な価格で取引できます。"
-  },
-  "swapIntroPopupTitle": {
-    "message": "トークンのスワップはこちら!"
-  },
-  "swapLearnMoreContractsAuditReview": {
-    "message": "MetaSwapのコントラクト監査のレビュー"
   },
   "swapLowSlippageError": {
     "message": "トランザクションが失敗する可能性があります。最大スリッページが少なすぎます。"
@@ -1812,9 +1759,6 @@
   },
   "swapSourceInfo": {
     "message": "最良のレートと最小のネットワーク手数料を探すため、複数の流動性ソース(取引所、アグリゲーター、専門のマーケットメーカー)を検索します。"
-  },
-  "swapStartSwapping": {
-    "message": "スワップの開始"
   },
   "swapSwapFrom": {
     "message": "スワップ元"

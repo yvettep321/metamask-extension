@@ -350,9 +350,6 @@
   "endOfFlowMessage6": {
     "message": "Hvis du får brug for at lave en backup af din seedfrase igen, kan du finde det under Indstillinger -> Sikkerhed."
   },
-  "endOfFlowMessage7": {
-    "message": "Hvis du har spørgsmål eller bemærker noget mistænkeligt, send en mail til support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask kan ikke gendanne din seed-sætning. Få mere at vide."
   },
@@ -756,15 +753,6 @@
   "privateNetwork": {
     "message": "Privat netværk"
   },
-  "protectYourKeys": {
-    "message": "Beskyt dine nøgler!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "Vær forsigtig med din backupsætning - der har været rapporter om websteder, der forsøger at efterligne MetaMask. MetaMask vil aldrig bede om din backupsætning!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "Opbevar din frase et sikkert sted. Hvis du ser noget mistænkeligt, eller du er usikker på hjemmesiden, skriv en email til support@metamask.io"
-  },
   "queue": {
     "message": "Kø"
   },
@@ -912,17 +900,11 @@
   "selectAnAccountHelp": {
     "message": "Vælg kontoen der skal vises i MetaMask"
   },
-  "selectCurrency": {
-    "message": "Vælg valuta"
-  },
   "selectEachPhrase": {
     "message": "Vælg venligst hver sætning, for at sikre at de er korrekte."
   },
   "selectHdPath": {
     "message": "Vælg HD-Sti"
-  },
-  "selectLocale": {
-    "message": "Vælg Lokalitet"
   },
   "selectPathHelp": {
     "message": "Hvis du ikke ser dine eksisterende Ledger-konti nedenfor, kan du prøve at skifte til \"Legacy (MEW / MyCrypto)\""
@@ -932,9 +914,6 @@
   },
   "sendAmount": {
     "message": "Send Beløb"
-  },
-  "sendETH": {
-    "message": "Vælg ETH"
   },
   "sendTokens": {
     "message": "Send tokens"

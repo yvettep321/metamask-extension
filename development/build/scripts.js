@@ -11,6 +11,8 @@ const browserify = require('browserify');
 const envify = require('loose-envify/custom');
 const sourcemaps = require('gulp-sourcemaps');
 const terser = require('gulp-terser-js');
+const babelify = require('babelify');
+const brfs = require('brfs');
 
 const conf = require('rc')('metamask', {
   INFURA_PROJECT_ID: process.env.INFURA_PROJECT_ID,
@@ -252,7 +254,9 @@ function createScriptTasks({ browserPlatforms, livereload }) {
         // note: sourcemaps call arity is important
         buildPipeline.push(sourcemaps.write());
       } else {
-        buildPipeline.push(sourcemaps.write('../sourcemaps'));
+        buildPipeline.push(
+          sourcemaps.write('../sourcemaps', { addComment: false }),
+        );
       }
 
       // write completed bundles
@@ -294,8 +298,8 @@ function createScriptTasks({ browserPlatforms, livereload }) {
     }
 
     let bundler = browserify(browserifyOpts)
-      .transform('babelify')
-      .transform('brfs');
+      .transform(babelify)
+      .transform(brfs);
 
     if (opts.buildLib) {
       bundler = bundler.require(opts.dependenciesToBundle);

@@ -350,9 +350,6 @@
   "endOfFlowMessage6": {
     "message": "Ако отново трябва да архивирате основната си фраза, можете да я намерите в Настройки -> Защита."
   },
-  "endOfFlowMessage7": {
-    "message": "Ако имате въпроси или забележите нещо съмнително, изпратете имейл на support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask не може да възстанови ключовата Ви фраза. Научете повече."
   },
@@ -771,15 +768,6 @@
   "privateNetwork": {
     "message": "Частна мрежа"
   },
-  "protectYourKeys": {
-    "message": "Защитете ключовете си!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "Внимавайте с вашата фраза - има съобщения за уебсайтове, които се опитват да имитират MetaMask. MetaMask никога няма да поиска вашата фраза-зародиш!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "Пазете фразата си. Ако забележите нещо съмнително или не сте сигурни за даден уебсайт, изпратете имейл на support@metamask.io"
-  },
   "queue": {
     "message": "Опашка"
   },
@@ -927,17 +915,11 @@
   "selectAnAccountHelp": {
     "message": "Изберете акаунта за преглед в MetaMask"
   },
-  "selectCurrency": {
-    "message": "Изберете валута"
-  },
   "selectEachPhrase": {
     "message": "Моля, изберете всяка фраза, за да се уверите, че е правилна."
   },
   "selectHdPath": {
     "message": "Изберете HD Path"
-  },
-  "selectLocale": {
-    "message": "Изберете местоположение"
   },
   "selectPathHelp": {
     "message": "Ако не виждате съществуващите си акаунти в Ledger по-долу, опитайте да превключите пътеки към „Legacy (MEW / MyCrypto)“"
@@ -950,9 +932,6 @@
   },
   "sendAmount": {
     "message": "Изпратете сумата"
-  },
-  "sendETH": {
-    "message": "Изпрати ETH"
   },
   "sendTokens": {
     "message": "Изпращане на жетони"

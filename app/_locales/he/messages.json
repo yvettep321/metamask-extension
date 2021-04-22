@@ -350,9 +350,6 @@
   "endOfFlowMessage6": {
     "message": "אם עליך לגבות את צירוף הגרעין שלך שוב, תוכל/י למצוא זאת בהגדרות -> אבטחה."
   },
-  "endOfFlowMessage7": {
-    "message": "אם יש לך שאלות או שנתקלת במשהו חשוד, שלח/י מייל ל- support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask לא הצליח לשחזר את ה-seedphrase שלך. למד/י עוד."
   },
@@ -772,15 +769,6 @@
   "privateNetwork": {
     "message": "רשת פרטית"
   },
-  "protectYourKeys": {
-    "message": "הגנ/י על המפתחות שלך!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "יש לנקוט זהירות בנוגע לצירוף הגרעין שלך - היו דיווחים על אתרים שמנסים להתחזות ל-MetaMask .MetaMask לעולם לא תבקש את צירוף הגרעין שלך!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "יש לשמור את ה-seedphrase שלך במקום בטוח. אם את/ה רואה משהו חשוד, או שאינך בטוח/ה בנוע לאתר, שלח/י אימייל לכתובת support@metamask.io"
-  },
   "queue": {
     "message": "תור"
   },
@@ -925,17 +913,11 @@
   "selectAnAccountHelp": {
     "message": "בחר את החשבון לצפייה ב- MetaMask"
   },
-  "selectCurrency": {
-    "message": "בחר מטבע"
-  },
   "selectEachPhrase": {
     "message": "נא לבחור כל צירוף מילים כדי להבטיח שהוא נכון."
   },
   "selectHdPath": {
     "message": "בחר/י נתיב HD"
-  },
-  "selectLocale": {
-    "message": "בחר/י מיקום"
   },
   "selectPathHelp": {
     "message": "אם אינך רואה את חשבונות ה-Ledger הקיימים שלך בהמשך, נסה/י להחליף נתיב ל-Legacy (MEW / MyCrypto)"
@@ -948,9 +930,6 @@
   },
   "sendAmount": {
     "message": "שלח סכום"
-  },
-  "sendETH": {
-    "message": "שלח/י ETH"
   },
   "sendTokens": {
     "message": "שלח טוקנים"

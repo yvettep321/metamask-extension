@@ -1,8 +1,8 @@
 import extension from 'extensionizer';
-import { createExplorerLink as explorerLink } from '@metamask/etherscan-link';
 import { getEnvironmentType, checkForError } from '../lib/util';
 import { ENVIRONMENT_TYPE_BACKGROUND } from '../../../shared/constants/app';
 import { TRANSACTION_STATUSES } from '../../../shared/constants/transaction';
+import { getBlockExplorerUrlForTx } from '../../../shared/modules/transaction.utils';
 
 export default class ExtensionPlatform {
   //
@@ -82,18 +82,26 @@ export default class ExtensionPlatform {
     return extension.runtime.getManifest().version;
   }
 
-  openExtensionInBrowser(route = null, queryString = null) {
+  openExtensionInBrowser(
+    route = null,
+    queryString = null,
+    keepCurrentTabOpen = false,
+  ) {
     let extensionURL = extension.runtime.getURL('home.html');
+
+    if (route) {
+      extensionURL += `#${route}`;
+    }
 
     if (queryString) {
       extensionURL += `?${queryString}`;
     }
 
-    if (route) {
-      extensionURL += `#${route}`;
-    }
     this.openTab({ url: extensionURL });
-    if (getEnvironmentType() !== ENVIRONMENT_TYPE_BACKGROUND) {
+    if (
+      getEnvironmentType() !== ENVIRONMENT_TYPE_BACKGROUND &&
+      !keepCurrentTabOpen
+    ) {
       window.close();
     }
   }
@@ -110,7 +118,7 @@ export default class ExtensionPlatform {
     }
   }
 
-  showTransactionNotification(txMeta) {
+  showTransactionNotification(txMeta, rpcPrefs) {
     const { status, txReceipt: { status: receiptStatus } = {} } = txMeta;
 
     if (status === TRANSACTION_STATUSES.CONFIRMED) {
@@ -120,7 +128,7 @@ export default class ExtensionPlatform {
             txMeta,
             'Transaction encountered an error.',
           )
-        : this._showConfirmedTransaction(txMeta);
+        : this._showConfirmedTransaction(txMeta, rpcPrefs);
     } else if (status === TRANSACTION_STATUSES.FAILED) {
       this._showFailedTransaction(txMeta);
     }
@@ -189,14 +197,16 @@ export default class ExtensionPlatform {
     });
   }
 
-  _showConfirmedTransaction(txMeta) {
+  _showConfirmedTransaction(txMeta, rpcPrefs) {
     this._subscribeToNotificationClicked();
 
-    const url = explorerLink(txMeta.hash, txMeta.metamaskNetworkId);
+    const url = getBlockExplorerUrlForTx(txMeta, rpcPrefs);
     const nonce = parseInt(txMeta.txParams.nonce, 16);
 
     const title = 'Confirmed transaction';
-    const message = `Transaction ${nonce} confirmed! View on Etherscan`;
+    const message = `Transaction ${nonce} confirmed! ${
+      url.length ? 'View on Etherscan' : ''
+    }`;
     this._showNotification(title, message, url);
   }
 

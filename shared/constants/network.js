@@ -10,12 +10,14 @@ export const ROPSTEN_NETWORK_ID = '3';
 export const RINKEBY_NETWORK_ID = '4';
 export const GOERLI_NETWORK_ID = '5';
 export const KOVAN_NETWORK_ID = '42';
+export const LOCALHOST_NETWORK_ID = '1337';
 
 export const MAINNET_CHAIN_ID = '0x1';
 export const ROPSTEN_CHAIN_ID = '0x3';
 export const RINKEBY_CHAIN_ID = '0x4';
 export const GOERLI_CHAIN_ID = '0x5';
 export const KOVAN_CHAIN_ID = '0x2a';
+export const LOCALHOST_CHAIN_ID = '0x539';
 
 /**
  * The largest possible chain ID we can handle.
@@ -30,6 +32,13 @@ export const MAINNET_DISPLAY_NAME = 'Ethereum Mainnet';
 export const GOERLI_DISPLAY_NAME = 'Goerli';
 
 export const INFURA_PROVIDER_TYPES = [ROPSTEN, RINKEBY, KOVAN, MAINNET, GOERLI];
+
+export const TEST_CHAINS = [
+  ROPSTEN_CHAIN_ID,
+  RINKEBY_CHAIN_ID,
+  GOERLI_CHAIN_ID,
+  KOVAN_CHAIN_ID,
+];
 
 export const NETWORK_TYPE_TO_ID_MAP = {
   [ROPSTEN]: { networkId: ROPSTEN_NETWORK_ID, chainId: ROPSTEN_CHAIN_ID },

@@ -344,9 +344,6 @@
   "endOfFlowMessage6": {
     "message": "Ak potrebujete backup frázu znova zálohovať, nájdete ju v časti Nastavenia -> Zabezpečenie."
   },
-  "endOfFlowMessage7": {
-    "message": "Ak budete mať nejaké otázky alebo niečo zaujímavé, pošlite email na support@metamask.io."
-  },
   "endOfFlowMessage8": {
     "message": "MetaMask nemôže obnoviť vašu seed frázu. Zistiť viac."
   },
@@ -744,15 +741,6 @@
   "privateNetwork": {
     "message": "Soukromá síť"
   },
-  "protectYourKeys": {
-    "message": "Chráňte si svoje kľúče!"
-  },
-  "protectYourKeysMessage1": {
-    "message": "Pri seed fráze buďte opatrní – vyskytli sa správy o webových stránkach, ktoré sa snažia napodobniť MetaMask. MetaMask nikdy nebude žiadať vašu seed frázu!"
-  },
-  "protectYourKeysMessage2": {
-    "message": "Držte svoju frázu v bezpečí. Ak zbadáte niečo podozrivé alebo si nie ste istí webom, pošlite email na adresu support@metamask.io"
-  },
   "queue": {
     "message": "Poradie"
   },
@@ -894,17 +882,11 @@
   "selectAnAccountHelp": {
     "message": "Vyberte účet, ktorý chcete zobraziť v MetaMask"
   },
-  "selectCurrency": {
-    "message": "Vybrat měnu"
-  },
   "selectEachPhrase": {
     "message": "Vyberte každú frázu, aby ste sa uistili, že je správna."
   },
   "selectHdPath": {
     "message": "Vyberte cestu HD"
-  },
-  "selectLocale": {
-    "message": "Vybrať miestne nastavenia"
   },
   "selectPathHelp": {
     "message": "Ak nevidíte svoje existujúce účty v Hlavnej knihe dole, skúste prepnúť cesty na „Odkaz (MEW/MyCrypto)“"
@@ -917,9 +899,6 @@
   },
   "sendAmount": {
     "message": "Poslať sumu"
-  },
-  "sendETH": {
-    "message": "Odeslat ETH"
   },
   "sendTokens": {
     "message": "Odeslat tokeny"

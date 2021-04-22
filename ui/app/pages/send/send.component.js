@@ -17,7 +17,11 @@ import AddRecipient from './send-content/add-recipient';
 import SendContent from './send-content';
 import SendFooter from './send-footer';
 import EnsInput from './send-content/add-recipient/ens-input';
-import { INVALID_RECIPIENT_ADDRESS_ERROR } from './send.constants';
+import {
+  INVALID_RECIPIENT_ADDRESS_ERROR,
+  KNOWN_RECIPIENT_ADDRESS_ERROR,
+  CONTRACT_ADDRESS_ERROR,
+} from './send.constants';
 
 export default class SendTransactionScreen extends Component {
   static propTypes = {
@@ -31,9 +35,8 @@ export default class SendTransactionScreen extends Component {
     gasLimit: PropTypes.string,
     gasPrice: PropTypes.string,
     gasTotal: PropTypes.string,
-    hasHexData: PropTypes.bool,
     history: PropTypes.object,
-    network: PropTypes.string,
+    chainId: PropTypes.string,
     primaryCurrency: PropTypes.string,
     resetSendState: PropTypes.func.isRequired,
     selectedAddress: PropTypes.string,
@@ -54,6 +57,8 @@ export default class SendTransactionScreen extends Component {
     scanQrCode: PropTypes.func.isRequired,
     qrCodeDetected: PropTypes.func.isRequired,
     qrCodeData: PropTypes.object,
+    sendTokenAddress: PropTypes.string,
+    gasIsExcessive: PropTypes.bool.isRequired,
   };
 
   static contextTypes = {
@@ -79,7 +84,7 @@ export default class SendTransactionScreen extends Component {
       conversionRate,
       from: { address, balance },
       gasTotal,
-      network,
+      chainId,
       primaryCurrency,
       sendToken,
       tokenBalance,
@@ -94,13 +99,14 @@ export default class SendTransactionScreen extends Component {
       qrCodeData,
       qrCodeDetected,
     } = this.props;
+    const { toError, toWarning } = this.state;
 
     let updateGas = false;
     const {
       from: { balance: prevBalance },
       gasTotal: prevGasTotal,
       tokenBalance: prevTokenBalance,
-      network: prevNetwork,
+      chainId: prevChainId,
       sendToken: prevSendToken,
       to: prevTo,
     } = prevProps;
@@ -140,13 +146,14 @@ export default class SendTransactionScreen extends Component {
     }
 
     if (!uninitialized) {
-      if (network !== prevNetwork && network !== 'loading') {
+      if (chainId !== prevChainId && chainId !== undefined) {
         updateSendTokenBalance({
           sendToken,
           tokenContract,
           address,
         });
         updateToNicknameIfNecessary(to, toNickname, addressBook);
+        this.props.fetchBasicGasEstimates();
         updateGas = true;
       }
     }
@@ -186,6 +193,25 @@ export default class SendTransactionScreen extends Component {
       } else {
         this.updateGas();
       }
+    }
+
+    // If selecting ETH after selecting a token, clear token related messages.
+    if (prevSendToken && !sendToken) {
+      let error = toError;
+      let warning = toWarning;
+
+      if (toError === CONTRACT_ADDRESS_ERROR) {
+        error = null;
+      }
+
+      if (toWarning === KNOWN_RECIPIENT_ADDRESS_ERROR) {
+        warning = null;
+      }
+
+      this.setState({
+        toError: error,
+        toWarning: warning,
+      });
     }
   }
 
@@ -233,7 +259,7 @@ export default class SendTransactionScreen extends Component {
   }
 
   validate(query) {
-    const { hasHexData, tokens, sendToken, network } = this.props;
+    const { tokens, sendToken, chainId, sendTokenAddress } = this.props;
 
     const { internalSearch } = this.state;
 
@@ -242,7 +268,7 @@ export default class SendTransactionScreen extends Component {
       return;
     }
 
-    const toErrorObject = getToErrorObject(query, hasHexData, network);
+    const toErrorObject = getToErrorObject(query, sendTokenAddress, chainId);
     const toWarningObject = getToWarningObject(query, tokens, sendToken);
 
     this.setState({
@@ -340,7 +366,7 @@ export default class SendTransactionScreen extends Component {
   }
 
   renderAddRecipient() {
-    const { toError } = this.state;
+    const { toError, toWarning } = this.state;
     return (
       <AddRecipient
         updateGas={({ to, amount, data } = {}) =>
@@ -348,6 +374,7 @@ export default class SendTransactionScreen extends Component {
         }
         query={this.state.query}
         toError={toError}
+        toWarning={toWarning}
         setInternalSearch={(internalSearch) =>
           this.setInternalSearch(internalSearch)
         }
@@ -356,8 +383,8 @@ export default class SendTransactionScreen extends Component {
   }
 
   renderSendContent() {
-    const { history, showHexData } = this.props;
-    const { toWarning } = this.state;
+    const { history, showHexData, gasIsExcessive } = this.props;
+    const { toWarning, toError } = this.state;
 
     return [
       <SendContent
@@ -367,6 +394,8 @@ export default class SendTransactionScreen extends Component {
         }
         showHexData={showHexData}
         warning={toWarning}
+        error={toError}
+        gasIsExcessive={gasIsExcessive}
       />,
       <SendFooter key="send-footer" history={history} />,
     ];

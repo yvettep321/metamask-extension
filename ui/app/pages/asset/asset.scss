@@ -13,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  height: 54px;
+  height: 64px;
 }
 
 .asset-breadcrumb {
@@ -37,7 +37,7 @@
     font-size: $font-size-paragraph;
     color: $Black-100;
     background-color: inherit;
-    padding: 2px 8px;
+    padding: 2px 0 2px 8px;
   }
 
   &__icon {

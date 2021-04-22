@@ -1,23 +1,22 @@
 import { cloneDeep } from 'lodash';
 import BigNumber from 'bignumber.js';
 import { getStorageItem, setStorageItem } from '../../../lib/storage-helpers';
-import { decGWEIToHexWEI } from '../../helpers/utils/conversions.util';
-import getFetchWithTimeout from '../../../../shared/modules/fetch-with-timeout';
-
-const fetchWithTimeout = getFetchWithTimeout(30000);
+import {
+  decGWEIToHexWEI,
+  getValueFromWeiHex,
+} from '../../helpers/utils/conversions.util';
+import { getIsMainnet, getCurrentChainId } from '../../selectors';
+import fetchWithCache from '../../helpers/utils/fetch-with-cache';
 
 // Actions
 const BASIC_GAS_ESTIMATE_LOADING_FINISHED =
   'metamask/gas/BASIC_GAS_ESTIMATE_LOADING_FINISHED';
 const BASIC_GAS_ESTIMATE_LOADING_STARTED =
   'metamask/gas/BASIC_GAS_ESTIMATE_LOADING_STARTED';
-const RESET_CUSTOM_GAS_STATE = 'metamask/gas/RESET_CUSTOM_GAS_STATE';
 const RESET_CUSTOM_DATA = 'metamask/gas/RESET_CUSTOM_DATA';
 const SET_BASIC_GAS_ESTIMATE_DATA = 'metamask/gas/SET_BASIC_GAS_ESTIMATE_DATA';
 const SET_CUSTOM_GAS_LIMIT = 'metamask/gas/SET_CUSTOM_GAS_LIMIT';
 const SET_CUSTOM_GAS_PRICE = 'metamask/gas/SET_CUSTOM_GAS_PRICE';
-const SET_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED =
-  'metamask/gas/SET_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED';
 
 const initState = {
   customData: {
@@ -30,7 +29,6 @@ const initState = {
     fast: null,
   },
   basicEstimateIsLoading: true,
-  basicPriceEstimatesLastRetrieved: 0,
 };
 
 // Reducer
@@ -67,18 +65,11 @@ export default function reducer(state = initState, action) {
           limit: action.value,
         },
       };
-    case SET_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED:
-      return {
-        ...state,
-        basicPriceEstimatesLastRetrieved: action.value,
-      };
     case RESET_CUSTOM_DATA:
       return {
         ...state,
         customData: cloneDeep(initState.customData),
       };
-    case RESET_CUSTOM_GAS_STATE:
-      return cloneDeep(initState);
     default:
       return state;
   }
@@ -99,36 +90,29 @@ export function basicGasEstimatesLoadingFinished() {
 
 async function basicGasPriceQuery() {
   const url = `https://api.metaswap.codefi.network/gasPrices`;
-  return await fetchWithTimeout(url, {
-    headers: {},
-    referrer: 'https://api.metaswap.codefi.network/gasPrices',
-    referrerPolicy: 'no-referrer-when-downgrade',
-    body: null,
-    method: 'GET',
-    mode: 'cors',
-  });
+  return await fetchWithCache(
+    url,
+    {
+      referrer: url,
+      referrerPolicy: 'no-referrer-when-downgrade',
+      method: 'GET',
+      mode: 'cors',
+    },
+    { cacheRefreshTime: 75000 },
+  );
 }
 
 export function fetchBasicGasEstimates() {
   return async (dispatch, getState) => {
-    const { basicPriceEstimatesLastRetrieved } = getState().gas;
-    const timeLastRetrieved =
-      basicPriceEstimatesLastRetrieved ||
-      (await getStorageItem('BASIC_PRICE_ESTIMATES_LAST_RETRIEVED')) ||
-      0;
+    const isMainnet = getIsMainnet(getState());
 
     dispatch(basicGasEstimatesLoadingStarted());
 
     let basicEstimates;
-    if (Date.now() - timeLastRetrieved > 75000) {
-      basicEstimates = await fetchExternalBasicGasEstimates(dispatch);
+    if (isMainnet || process.env.IN_TEST) {
+      basicEstimates = await fetchExternalBasicGasEstimates();
     } else {
-      const cachedBasicEstimates = await getStorageItem(
-        'BASIC_PRICE_ESTIMATES',
-      );
-      basicEstimates =
-        cachedBasicEstimates ||
-        (await fetchExternalBasicGasEstimates(dispatch));
+      basicEstimates = await fetchEthGasPriceEstimates(getState());
     }
 
     dispatch(setBasicGasEstimateData(basicEstimates));
@@ -138,10 +122,12 @@ export function fetchBasicGasEstimates() {
   };
 }
 
-async function fetchExternalBasicGasEstimates(dispatch) {
-  const response = await basicGasPriceQuery();
-
-  const { SafeGasPrice, ProposeGasPrice, FastGasPrice } = await response.json();
+async function fetchExternalBasicGasEstimates() {
+  const {
+    SafeGasPrice,
+    ProposeGasPrice,
+    FastGasPrice,
+  } = await basicGasPriceQuery();
 
   const [safeLow, average, fast] = [
     SafeGasPrice,
@@ -155,12 +141,37 @@ async function fetchExternalBasicGasEstimates(dispatch) {
     fast,
   };
 
-  const timeRetrieved = Date.now();
-  await Promise.all([
-    setStorageItem('BASIC_PRICE_ESTIMATES', basicEstimates),
-    setStorageItem('BASIC_PRICE_ESTIMATES_LAST_RETRIEVED', timeRetrieved),
+  return basicEstimates;
+}
+
+async function fetchEthGasPriceEstimates(state) {
+  const chainId = getCurrentChainId(state);
+  const [cachedTimeLastRetrieved, cachedBasicEstimates] = await Promise.all([
+    getStorageItem(`${chainId}_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED`),
+    getStorageItem(`${chainId}_BASIC_PRICE_ESTIMATES`),
   ]);
-  dispatch(setBasicPriceEstimatesLastRetrieved(timeRetrieved));
+  const timeLastRetrieved = cachedTimeLastRetrieved || 0;
+  if (cachedBasicEstimates && Date.now() - timeLastRetrieved < 75000) {
+    return cachedBasicEstimates;
+  }
+  const gasPrice = await global.eth.gasPrice();
+  const averageGasPriceInDecGWEI = getValueFromWeiHex({
+    value: gasPrice.toString(16),
+    numberOfDecimals: 4,
+    toDenomination: 'GWEI',
+  });
+  const basicEstimates = {
+    average: Number(averageGasPriceInDecGWEI),
+  };
+  const timeRetrieved = Date.now();
+
+  await Promise.all([
+    setStorageItem(`${chainId}_BASIC_PRICE_ESTIMATES`, basicEstimates),
+    setStorageItem(
+      `${chainId}_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED`,
+      timeRetrieved,
+    ),
+  ]);
 
   return basicEstimates;
 }
@@ -168,7 +179,7 @@ async function fetchExternalBasicGasEstimates(dispatch) {
 export function setCustomGasPriceForRetry(newPrice) {
   return async (dispatch) => {
     if (newPrice === '0x0') {
-      const { fast } = await getStorageItem('BASIC_PRICE_ESTIMATES');
+      const { fast } = await fetchExternalBasicGasEstimates();
       dispatch(setCustomGasPrice(decGWEIToHexWEI(fast)));
     } else {
       dispatch(setCustomGasPrice(newPrice));
@@ -195,17 +206,6 @@ export function setCustomGasLimit(newLimit) {
     type: SET_CUSTOM_GAS_LIMIT,
     value: newLimit,
   };
-}
-
-export function setBasicPriceEstimatesLastRetrieved(retrievalTime) {
-  return {
-    type: SET_BASIC_PRICE_ESTIMATES_LAST_RETRIEVED,
-    value: retrievalTime,
-  };
-}
-
-export function resetCustomGasState() {
-  return { type: RESET_CUSTOM_GAS_STATE };
 }
 
 export function resetCustomData() {

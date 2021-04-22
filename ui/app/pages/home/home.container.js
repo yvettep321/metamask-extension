@@ -10,6 +10,8 @@ import {
   getTotalUnapprovedCount,
   getWeb3ShimUsageStateForOrigin,
   unconfirmedTransactionsCountSelector,
+  getShowWhatsNewPopup,
+  getSortedNotificationsToShow,
 } from '../../selectors';
 
 import {
@@ -19,16 +21,12 @@ import {
   setShowRestorePromptToFalse,
   setConnectedStatusPopoverHasBeenShown,
   setDefaultHomeActiveTabName,
-  setSwapsWelcomeMessageHasBeenShown,
   setWeb3ShimUsageAlertDismissed,
   setAlertEnabledness,
 } from '../../store/actions';
-import { setThreeBoxLastUpdated } from '../../ducks/app/app';
+import { setThreeBoxLastUpdated, hideWhatsNewPopup } from '../../ducks/app/app';
 import { getWeb3ShimUsageAlertEnabledness } from '../../ducks/metamask/metamask';
-import {
-  getSwapsWelcomeMessageSeenStatus,
-  getSwapsFeatureLiveness,
-} from '../../ducks/swaps/swaps';
+import { getSwapsFeatureLiveness } from '../../ducks/swaps/swaps';
 import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import {
   ENVIRONMENT_TYPE_NOTIFICATION,
@@ -52,6 +50,7 @@ const mapStateToProps = (state) => {
     connectedStatusPopoverHasBeenShown,
     defaultHomeActiveTabName,
     swapsState,
+    pendingApprovals = {},
   } = metamask;
   const accountBalance = getCurrentEthBalance(state);
   const { forgottenPassword, threeBoxLastUpdated } = appState;
@@ -94,13 +93,15 @@ const mapStateToProps = (state) => {
     totalUnapprovedCount,
     connectedStatusPopoverHasBeenShown,
     defaultHomeActiveTabName,
-    swapsWelcomeMessageHasBeenShown: getSwapsWelcomeMessageSeenStatus(state),
     haveSwapsQuotes: Boolean(Object.values(swapsState.quotes || {}).length),
     swapsFetchParams: swapsState.fetchParams,
     showAwaitingSwapScreen: swapsState.routeState === 'awaiting',
     isMainnet: getIsMainnet(state),
     originOfCurrentTab,
     shouldShowWeb3ShimUsageNotification,
+    pendingApprovals: Object.values(pendingApprovals),
+    notificationsToShow: getSortedNotificationsToShow(state).length > 0,
+    showWhatsNewPopup: getShowWhatsNewPopup(state),
   };
 };
 
@@ -121,12 +122,11 @@ const mapDispatchToProps = (dispatch) => ({
   setConnectedStatusPopoverHasBeenShown: () =>
     dispatch(setConnectedStatusPopoverHasBeenShown()),
   onTabClick: (name) => dispatch(setDefaultHomeActiveTabName(name)),
-  setSwapsWelcomeMessageHasBeenShown: () =>
-    dispatch(setSwapsWelcomeMessageHasBeenShown()),
   setWeb3ShimUsageAlertDismissed: (origin) =>
     setWeb3ShimUsageAlertDismissed(origin),
   disableWeb3ShimUsageAlert: () =>
     setAlertEnabledness(ALERT_TYPES.web3ShimUsage, false),
+  hideWhatsNewPopup: () => dispatch(hideWhatsNewPopup()),
 });
 
 export default compose(
